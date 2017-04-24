@@ -116,9 +116,19 @@
 					<div class="luquzhuanye">
 						录取专业：<span class="shuju" id="luquzhuanye">${studentInfo.zymc }</span>
 					</div>
-					<div class="luquzhuanye" id="bddone" style="color:red;display: none">
-						已完成报名！
-					</div>
+    <div class="zt" style="position:relative">
+    当前状态：
+    <span class="luquzhuanye" id="bddone" style="color:red;display: none">
+    已完成报名！
+    </span>
+
+    <span
+    style="top:3px;left:165px;display:inline-block;color:#1296DB;width:16px;height:16px;position:absolute;background-image:
+    url(plug-in/weixin/yx/images/shuaxin.png);background-size:100% 100%;" onclick="reloadout()"></span>
+    <span style="margin-left:30px;font-size:10pt" onclick="reloadout()">刷新</span>
+
+    </div>
+
 				</div>
 
 			</div>
@@ -194,10 +204,41 @@
 	</body>
 
 	<script>
+
+    //刷新方法
+    function reloadout() {
+
+    $.ajax({
+    type: "post",
+    url: "mobileStudentController.do?refresh",
+
+    async: true,
+    success: function(data) {
+    console.log(data);
+    location.reload(true);
+
+    }
+
+    });
+    }
+
+
 		$(document).ready(function() {
-			var isbddone="${studentInfo.sfyx}";
+    var isbddone="${studentInfo.sfyx}";
+    var sfjf = "${studentInfo.sfjf}";
+
+    if(sfjf=="N"){
+    $("#bddone").show().html("未缴费！").next().show().next().show();;
+    }else{
+    $("#bddone").show().html("已缴费！").next().show().next().show();;
+    }
+
+
+    //当前状态
+
 
     //验证是否院系报到
+
 			if(isbddone=="N"){
 				//是否领取要是
 			//验证电脑端是否有数据
@@ -259,7 +300,7 @@
 			};
 				
 			}else{
-				$("#bddone").show();
+    $("#bddone").show().html("已完成报道！").next().hide().next().hide();
 			}
 
 			
