@@ -97,8 +97,9 @@
 					<p></p>
 				</div>
 				<div class="conbut" id="querenbut-main" style="width:100%;text-align: center;line-height: 47px;display:none">确定</div>
-				<div class="conbut" id="main-quxiao" style="display:none;border-right:1px solid #ccc;border-bottom-left:5px;">取消</div>
-				<div class="conbut" id="main-querenbut" style="display:none">继续</div>
+    <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid
+    #ccc">取消</div>
+    <div class="conbut" id="main-querenbut" style="display:none;">继续</div>
 			</div>
 		</div>
 		<div class="stuinfo">
@@ -195,8 +196,8 @@
 	<script>
 		$(document).ready(function() {
 			var isbddone="${studentInfo.sfyx}";
-			
-			
+
+    //验证是否院系报到
 			if(isbddone=="N"){
 				//是否领取要是
 			//验证电脑端是否有数据
@@ -275,18 +276,6 @@
 							var su = data.success;
 							var obj = data.msg;
 							if(su == true) {
-								//alert(data.success);
-								//alert(obj);
-								//验证是否缴费
-								/*$.ajax({
-									type:"post",
-									url:"",
-									async:true,
-									success:function(){
-										
-									}
-								});*/
-
 								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
 								//sfjf = "Y";
 								if(sfjf == "Y") {

@@ -9,7 +9,7 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="viewport"
 	content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-<title>学生之友-用户登录</title>
+	<title>辅导员入口</title>
 <script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js"></script>
 <link href="plug-in/weixin/yx/css/global.css" rel="stylesheet"
 	type="text/css">
@@ -38,7 +38,7 @@
 				}
 				else
 				{
-					alert("验证成功！");
+	//alert("验证成功！");
 					location.href="mobileStudentController.do?goClassList";
 				}
 			},

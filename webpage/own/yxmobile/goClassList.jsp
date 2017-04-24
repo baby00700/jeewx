@@ -11,12 +11,15 @@
 	content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
 <title>教师端</title>
 <script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js"></script>
+	<link href="plug-in/weixin/yx/css/loading.css" rel="stylesheet" type="text/css">
 
 <link href="plug-in/weixin/yx/css/mui.css" rel="stylesheet" type="text/css">
 <link href="plug-in/weixin/yx/css/yingxin.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 	var ksh="";
 	 function getclass(ksh){
+
+	$(".jiazai").stop().fadeIn(800);
 		  	 $.ajax({
 		    type : "post",
 		    dataType : "json",
@@ -57,7 +60,7 @@
 		         // console.log(xsxx);
 		            $(".con").append(xsxx);
 		          }
-		          
+	$(".jiazai").stop().fadeOut(800);
 		       
 		        }
 		      }
@@ -65,7 +68,7 @@
 		      {
 		        
 		        console.log("当前无可用数据！");
-
+	$(".jiazai").stop().fadeOut();
 		        $(".con").html('<div style="padding:10px;color:#555">当前无可用数据！</div>')
 		        
 		      }
@@ -156,11 +159,30 @@ $(document).ready(function() {
 		    box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 
 		}
+	.jiazai{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:888;
+	}
+
+	#spinner{
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	margin:auto;
+	}
 	</style>
 </head>
 
 <body>
-
+	<div class="jiazai">
+	<div id="spinner"></div>
+	</div>
 	 <div class="zhezhao-queren">
 		 <div class="querenkuang">
 		 <div class="queren-wenzi">
