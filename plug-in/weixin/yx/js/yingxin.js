@@ -938,6 +938,9 @@ $(document).ready(function() {
 				var qxz = "none";
 				console.log(qinshi00 + chuangwei00);
 				if(qinshi00 != qxz && chuangwei00 != qxz) {
+                    $("#sushe-quxiao").show();
+                    $("#sushe-querenbut").show();
+                    $("#querenbut-sushe1").hide();
 					$("#sushe-querenzz").stop().fadeIn();
 					$("#sushe-queren-z p").text("您被分配到" + chuangwei01 + "，确认分配宿舍吗？");
 					$("#sushe-quxiao").click(function() {
@@ -946,7 +949,7 @@ $(document).ready(function() {
 					//确认并跳转
 					var info = [{
 						"chmc": chuangwei01,
-						"chbm": chuangwei00
+                        "chbm": chuangwei00
 					}];
 					$("#sushe-querenbut").on("click", function() {
 						//ajax
@@ -956,11 +959,15 @@ $(document).ready(function() {
 							dataType: "json",
 							data: {
 								info: JSON.stringify(info)
-							},
+
+
+                            },
 							async: true,
 							success: function(data) {
 								console.log('success');
+
 								if(data.success==true){
+
 									//alert(data.msg);
 									$("#page2").stop().fadeOut();
 									$("#page3").stop().fadeIn();
@@ -971,7 +978,76 @@ $(document).ready(function() {
 									benciliucheng++;
 									buttonclick(buttn);
 								}else{
-									alert("宿舍信息办理失败！");
+                                    //alert(data.msg);
+                                    $("#sushe-queren-z p").text(data.msg);
+                                    $("#sushe-quxiao").hide();
+                                    $("#sushe-querenbut").hide();
+                                    $("#querenbut-sushe1").show().click(function () {
+                                        $("#chuangwei00 option").remove();
+                                        $("#sushe-querenzz").stop().fadeOut();
+                                        //获取宿舍信息
+
+
+                                        $("#chuangwei00").css("width", "0");
+                                        $("#chuangweijiazai").show();
+
+                                        $("#chuangwei00").append('<option value="none">请选择</option>');
+                                        var val00 = $("#qinshi00").val();
+                                        var dropid = val00;
+                                        if (val00 == "none") {
+                                            $("#chuangwei00").css("width", "auto");
+                                            $("#chuangweijiazai").hide();
+                                        }
+
+                                        $.ajax({
+                                            type: "post",
+                                            dataType: "json",
+                                            url: "mobileStudentController.do?getDromList",
+                                            data: {
+                                                sfzh: sfzh,
+                                                pid: dropid
+                                            },
+                                            success: function (data) {
+
+                                                $("#chuangwei00 option").remove();
+                                                $("#chuangwei00").append('<option value="none">请选择</option>');
+                                                var end = data.obj;
+
+                                                var obj = $.parseJSON(data.msg);
+                                                if (end != null && end == "end") {
+                                                    //alert(end);
+                                                    for (var i = 0; i < obj.length; i++) {
+                                                        //alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                        susheOBJmc = obj[i].cname;
+                                                        susheOBJid = obj[i].cc;
+
+                                                        var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                        $("#chuangwei00").append(susheSEL);
+
+                                                        var selsize = $("#chuangwei00 option").size();
+                                                        if (selsize >= 2) {
+                                                            console.log(selsize);
+                                                            $("#chuangweijiazai").hide();
+                                                            $("#chuangwei00").css("width", "auto");
+                                                        }
+
+                                                    }
+                                                } else {
+                                                    for (var i = 0; i < obj.length; i++) {
+                                                        //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+
+                                                    }
+
+                                                }
+                                            },
+                                            error: function (msg) {
+                                                alert("error:" + msg);
+                                            }
+                                        });
+
+
+                                    });
+
 								}
 								
 							},
@@ -1058,10 +1134,10 @@ $(document).ready(function() {
 			//baodao
 			var baodao = $('input:radio[name="baodao"]:checked').val();
 			$("#baodao1").click(function() {
-				baodao = "zhunshi";
+                baodao = "准时到校";
 			});
 			$("#baodao2").click(function() {
-				baodao = "yanchi";
+                baodao = "延迟到校";
 			});
 
 			//			//jiezhan
@@ -1078,18 +1154,18 @@ $(document).ready(function() {
 			//jiaotong
 			var jiaotong = $('input:radio[name="jiaotong"]:checked').val();
 			$("#jiaotong1").click(function() {
-				jiaotong = "huoche";
+                jiaotong = "火车";
 			});
 			$("#jiaotong2").click(function() {
-				jiaotong = "qiche";
+                jiaotong = "汽车";
 			});
 			$("#jiaotong3").click(function() {
-				jiaotong = "xiaoche";
+                jiaotong = "校车";
 			});
 			//peitong
 			var peitong = $('input:radio[name="peitong"]:checked').val();
 			$("#peitong1").click(function() {
-				peitong = "wu";
+                peitong = "无";
 			});
 			$("#peitong2").click(function() {
 				peitong = "1";
