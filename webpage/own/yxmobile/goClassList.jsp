@@ -9,7 +9,8 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="viewport"
 	content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-<title>教师端</title>
+
+    <title>教师端</title>
 <script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js"></script>
 	<link href="plug-in/weixin/yx/css/loading.css" rel="stylesheet" type="text/css">
 
