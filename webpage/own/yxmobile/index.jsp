@@ -437,6 +437,8 @@
 							</div>
 							<div class="conbut" id="sushe-quxiao">取消</div>
 							<div class="conbut" id="sushe-querenbut">确定分配</div>
+	<div class="conbut" id="querenbut-sushe1" style="width:100%;text-align: center;line-height:
+	47px;display:none">确定</div>
 						</div>
 					</div>
 

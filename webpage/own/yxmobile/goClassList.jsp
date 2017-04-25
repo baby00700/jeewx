@@ -9,7 +9,6 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="viewport"
 	content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-
     <title>教师端</title>
 <script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js"></script>
 	<link href="plug-in/weixin/yx/css/loading.css" rel="stylesheet" type="text/css">
@@ -61,7 +60,7 @@
 		         // console.log(xsxx);
 		            $(".con").append(xsxx);
 		          }
-	$(".jiazai").stop().fadeOut(800);
+    $(".jiazai").stop().fadeOut(800);
 		       
 		        }
 		      }
@@ -69,8 +68,9 @@
 		      {
 		        
 		        console.log("当前无可用数据！");
-	$(".jiazai").stop().fadeOut();
-		        $(".con").html('<div style="padding:10px;color:#555">当前无可用数据！</div>')
+    $(".jiazai").stop().fadeOut();
+    $(".tip").stop().fadeIn(800).html("暂无学生信息")
+    $(".wrap").addClass("maoboli");
 		        
 		      }
 		      else
@@ -177,10 +177,27 @@ $(document).ready(function() {
 	bottom:0;
 	margin:auto;
 	}
+    .maoboli{
+    -webkit-filter: blur(10px);
+    }
+    .tip{
+    height:20px;
+    line-height:20px;
+    width:100%;
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    text-align:center;
+
+    }
 	</style>
 </head>
 
 <body>
+    <div class="tip" style="display:none"></div>
 	<div class="jiazai">
 	<div id="spinner"></div>
 	</div>

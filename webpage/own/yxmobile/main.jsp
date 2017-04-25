@@ -212,7 +212,6 @@
     $.ajax({
     type: "post",
     url: "mobileStudentController.do?refresh",
-
     async: true,
     success: function(data) {
     console.log(data);
