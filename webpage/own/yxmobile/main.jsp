@@ -48,8 +48,6 @@
 				                        	var imageHref1=value[0].imageHref;
 				                        	var id1=value[0].id;
 				                        	var idurl1="cmsController.do?goPage&page=article&articleid="+id1;
-
-
 				                        	var title=value[i].title;
 				                        	var imageHref=value[i].imageHref;
 				                        	var id=value[i].id;
@@ -122,10 +120,10 @@
     已完成报名！
     </span>
 
-    <span
-    style="top:3px;left:165px;display:inline-block;color:#1296DB;width:16px;height:16px;position:absolute;background-image:
-    url(plug-in/weixin/yx/images/shuaxin.png);background-size:100% 100%;" onclick="reloadout()"></span>
-    <span style="margin-left:30px;font-size:10pt" onclick="reloadout()">刷新</span>
+	<span
+	style="top:1px;display:inline-block;color:#1296DB;width:16px;height:16px;position:absolute;background-image:
+	url(plug-in/weixin/yx/images/shuaxin.png);background-size:100% 100%;" onclick="reloadout()"></span>
+	<span style="margin-left:17px;font-size:10pt" onclick="reloadout()">刷新</span>
 
     </div>
 
@@ -176,7 +174,8 @@
 					<a href="mobileStudentController.do?goMyDrom"><img src="plug-in/weixin/yx/images/06.png"><br>我的宿舍</a>
 				</li>
 				<!--<li><a href="#"><img src="plug-in/weixin/yx/images/07.png"><br>我要咨询</a></li>
-			<li><a href="#"><img src="plug-in/weixin/yx/images/08.png"><br>更多</a></li>-->
+	<li><a
+	href="#"><img src="plug-in/weixin/yx/images/08.png"><br>更多</a></li>-->
 			</ul>
 		</div>
 
@@ -300,7 +299,7 @@
 			};
 				
 			}else{
-    $("#bddone").show().html("已完成报道！").next().hide().next().hide();
+	$("#bddone").show().html("已完成报道！").next().hide().next().hide();
 			}
 
 			
@@ -313,6 +312,7 @@
 						type: "post",
 						dataType: "json",
 						url: "mobileStudentController.do?isRegister",
+	timeout : 5000,//超时0.5秒
 						success: function(data) {
 							var su = data.success;
 							var obj = data.msg;
@@ -354,7 +354,13 @@
 						},
 						error: function(msg) {
 							alert("error:" + msg);
-						}
+	},
+	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+	　　　　　 ajaxTimeoutTest.abort();
+	　　　　　 alert("连接超时");
+	　　　　}
+	　　}
 					});
 
 				} else {
