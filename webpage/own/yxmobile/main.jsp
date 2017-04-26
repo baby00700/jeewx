@@ -22,7 +22,8 @@
 
 
 	<script type="text/javascript">
-		var rows = 3;//每页显示记录数
+    var stuaddr = "${studentInfo.address }";
+    var rows = 3;//每页显示记录数
 	    	var page = 1;//当前页
 	    	var total = 0;//总记录数
 	    	var field = "id,title,columnId,summary,createDate,imageName,imageHref,accountid,";//字段
@@ -312,7 +313,7 @@
 			};
 				
 			}else{
-	$("#bddone").show().html("已完成报道！").next().hide().next().hide();
+    $("#bddone").show().html("已完成报道！").next().hide().next().hide();
 			}
 
 			
@@ -366,32 +367,46 @@
 							}
 						},
 						error: function(msg) {
-	alert("error:" + msg);
-	},
-	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-	　　　　　 ajaxTimeoutTest.abort();
-	　　　　　 alert("连接超时");
-	　　　　}
-	}
+    alert("error:" + msg);
+    },
+    complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+    　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+    　　　　　 ajaxTimeoutTest.abort();
+    　　　　　 alert("连接超时");
+    　　　　}
+    }
 					});
 
-				} else {
-	if(iskey=="Y"){
-	alert("您已领取钥匙，请到xxx进行系部报道！");
-	}
-					$(".zhezhao-queren").stop().fadeIn();
-					$("#main-quxiao").show();
-					$("#main-querenbut").show();
-					$("#main-quxiao").click(function() {
-						$(".zhezhao-queren").stop().fadeOut();
-					});
-					$("#main-querenbut").click(function() {
-						window.location.href = "mobileStudentController.do?myinfo";
-					});
+    } else {
+    if(iskey=="Y"){
+    alert("您已领取钥匙,请到"+stuaddr+"进行报道!");
+    $(".zhezhao-queren").stop().fadeIn();
+    $("#main-quxiao").show();
+    $("#main-querenbut").show();
+    $("#main-quxiao").click(function() {
+    $(".zhezhao-queren").stop().fadeOut();
+    });
+    $("#main-querenbut").click(function() {
+    window.location.href = "mobileStudentController.do?myinfo";
+    });
 
-					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
-					//window.location.href = "mobileStudentController.do?index";
+    $(".queren-wenzi p").text("您已报名,是否查看报名详情？");
+    //window.location.href = "mobileStudentController.do?index";
+    }else{
+    $(".zhezhao-queren").stop().fadeIn();
+    $("#main-quxiao").show();
+    $("#main-querenbut").show();
+    $("#main-quxiao").click(function() {
+    $(".zhezhao-queren").stop().fadeOut();
+    });
+    $("#main-querenbut").click(function() {
+    window.location.href = "mobileStudentController.do?myinfo";
+    });
+
+    $(".queren-wenzi p").text("您已报名,是否查看报名详情？");
+    //window.location.href = "mobileStudentController.do?index";
+    }
+
 				};
 			}else{
 				window.location.href = "mobileStudentController.do?myinfo";
