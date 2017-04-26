@@ -23,6 +23,7 @@
 		  	 $.ajax({
 		    type : "post",
 		    dataType : "json",
+    timeout:5000,
 		    url : "mobileStudentController.do?getClassList",
 		    data : {
 		      ksh : ksh
@@ -66,8 +67,8 @@
 		      }
 		      else if(data.obj=="NOT")
 		      {
-		        
-		        console.log("当前无可用数据！");
+
+    console.log("当前无可用数据！");
     $(".jiazai").stop().fadeOut();
     $(".tip").stop().fadeIn(800).html("暂无学生信息")
     $(".wrap").addClass("maoboli");
@@ -80,7 +81,13 @@
 		    },
 		    error : function(msg) {
 		      console.log("error:" + msg);
-		    }
+    },
+    complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+    　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+    　　　　　 ajaxTimeoutTest.abort();
+    　　　　　 alert("连接超时");
+    　　　　}
+    }
 
 		    
 		  });

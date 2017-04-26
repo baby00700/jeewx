@@ -209,28 +209,33 @@
     //刷新方法
     function reloadout() {
 
-    $.ajax({
-    type: "post",
-    url: "mobileStudentController.do?refresh",
-    async: true,
-    success: function(data) {
-    console.log(data);
-    location.reload(true);
-
+	$.ajax({
+	type: "post",
+	timeout:5000,
+	url: "mobileStudentController.do?refresh",
+	async: true,
+	success: function(data) {
+	console.log(data);
+	location.reload(true);
+	},
+	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+	　　　　　
+	　　　　　 alert("连接超时");
+	　　　　}
+	}
+	});
     }
 
-    });
-    }
 
+	$(document).ready(function() {
+	var isbddone="${studentInfo.sfyx}";
+	var sfjf = "${studentInfo.sfjf}";
 
-		$(document).ready(function() {
-    var isbddone="${studentInfo.sfyx}";
-    var sfjf = "${studentInfo.sfjf}";
-
-    if(sfjf=="N"){
-    $("#bddone").show().html("未缴费！").next().show().next().show();;
-    }else{
-    $("#bddone").show().html("已缴费！").next().show().next().show();;
+	if(sfjf=="N"){
+	$("#bddone").show().html("未缴费！").next().show().next().show();;
+	}else{
+	$("#bddone").show().html("已缴费！").next().show().next().show();;
     }
 
 
@@ -249,6 +254,7 @@
 				$.ajax({
 					type: "post",
 					dataType: "json",
+	timeout : 5000,//超时5秒
 					url: "mobileStudentController.do?isRegister",
 					success: function(data) {
 						var su = data.success;
@@ -280,6 +286,12 @@
 					},
 					error: function(msg) {
 						alert("error:" + msg);
+	},
+	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+	　　　　　 ajaxTimeoutTest.abort();
+	　　　　　 alert("连接超时");
+	　　　　}
 					}
 				});
 
@@ -313,7 +325,7 @@
 						type: "post",
 						dataType: "json",
 						url: "mobileStudentController.do?isRegister",
-	timeout : 5000,//超时0.5秒
+	timeout : 5000,//超时5秒
 						success: function(data) {
 							var su = data.success;
 							var obj = data.msg;
@@ -354,7 +366,7 @@
 							}
 						},
 						error: function(msg) {
-							alert("error:" + msg);
+	alert("error:" + msg);
 	},
 	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
 	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
@@ -365,7 +377,9 @@
 					});
 
 				} else {
-
+	if(iskey=="Y"){
+	alert("您已领取钥匙，请到xxx进行系部报道！");
+	}
 					$(".zhezhao-queren").stop().fadeIn();
 					$("#main-quxiao").show();
 					$("#main-querenbut").show();
