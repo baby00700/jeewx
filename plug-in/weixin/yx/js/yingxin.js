@@ -384,7 +384,7 @@ $(document).ready(function() {
 				}
 
 			}
-			benciliucheng = liucheng; //流程控制
+            benciliucheng = liucheng = 2; //流程控制
 			//默认状态	默认头部本步骤高亮 默认所获取的状态之前的页面不可见 默认显示本次流程状态页面
 			//将按钮样式变化以及切换div封装为函数//初始状态下按钮
 			function buttonclick(buttn) {
@@ -1249,14 +1249,9 @@ $(document).ready(function() {
                         $(this).removeClass("subbut").addClass("subbut-visited");
 
                         $("#page3").stop().fadeOut();
-                        $("#page4").stop().fadeIn(200, function () {
-                            var nn = true;
-                            if (nn == true) {
-                                reloadout();
-                            }
-                        });
-					
-					
+                    $("#page4").stop().fadeIn();
+
+
 					
 					//$("#banji").html(bjmc);
 					//$("#yddh").html(yddh);
