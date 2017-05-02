@@ -484,7 +484,7 @@
 						<div class="dixiao-radio">
 							<div class="radio-line">
 								<div class="dixiao-wenti">
-									<p id="wenti1">1、您会按时报到吗？</p>
+									<p id="wenti1">1、您会按时报到吗？<span style="color:red">*</span></p>
 								</div>
 								<div class="dixiao-daan">
 									<div class="radio-wrap" id="baodao1">
@@ -522,7 +522,7 @@
 							</div>-->
 							<div class="radio-line">
 								<div class="dixiao-wenti">
-									<p id="wenti2">2、您乘坐什么交通工具？</p>
+									<p id="wenti2">2、您乘坐什么交通工具？<span style="color:red">*</span></p>
 								</div>
 								<div class="dixiao-daan">
 									<div class="radio-wrap" id="jiaotong1">
@@ -547,7 +547,7 @@
 							</div>
 							<div class="radio-line">
 								<div class="dixiao-wenti">
-									<p id="wenti3">3、您的陪同人数？</p>
+									<p id="wenti3">3、您的陪同人数？<span style="color:red">*</span></p>
 								</div>
 								<div class="dixiao-daan">
 									<div class="radio-wrap" id="peitong1">
@@ -591,8 +591,8 @@
 
 							<div class="radio-line" style="height:45px;">
 								<div class="dixiao-wenti">
-									<p id="wenti4">4、您的到校时间？</p>
-									<button id='SelDate' data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" style="position:absolute;right:30px;height:45px;line-height:45px;border:0px;font-size:14px;padding:0;width:auto;color:#555;">选择日期 </button>
+									<p id="wenti4">4、您的到校时间？<span style="color:red">*</span></p>
+									<button id='SelDate' data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" style="position:absolute;right:30px;height:43px;line-height:43px;border:0px;font-size:14px;padding:0;width:auto;color:#555;">选择日期 </button>
 									<div class="youjiantou"></div>
 								</div>
 
@@ -607,7 +607,7 @@
 								</div>-->
 
 								<div id="chezhan" class="xuan-sushe">
-									<div class="sushe-title" id="wenti5">5、您下车车站？</div>
+									<div class="sushe-title" id="wenti5">5、您下车车站？<span style="color:red">*</span></div>
 									<div class="select-sushe" id="select-chezhan">
 										<select name="chezhan" class="select-sushe-class" id="chezhan">
 											<option value="none">请选择</option>
@@ -630,7 +630,16 @@
 					</div>
 
 					<div class="subbut" id="dixiaobut">确定</div>
-					<div class="sub-non subbut-visited">已提交</div>
+						<div class="zhezhao-queren" id="Xqueren">
+							<div class="querenkuang">
+								<div class="queren-wenzi" id="wenzi-con">
+									<p style="display: block;margin-left: 0;width:100%;text-align: center;margin-top:20px;"></p>
+								</div>
+							<!--提示分班不成功，请联系xxx...只有一个确认按钮，点击确认可以关闭遮罩层-->
+							<div class="conbut" id="Xbbut" style="display: none;width:100%">确定</div>
+
+						</div>
+					</div>
 
 				</div>
 				<div class="spage" id="page4" style="position:relative">
@@ -655,23 +664,23 @@
 							<ul>
 								<li class="list-info">
 									<span class="info-title">班级名称</span>
-									<span class="info-con">${studentInfo.bjmc}</span>
+									<span class="info-con" id="bjmc"></span>
 								</li>
 								<li class="list-info">
 									<span class="info-title">班主任姓名</span>
-									<span class="info-con">${studentInfo.fdyxm}</span>
+									<span class="info-con" id="bzr"></span>
 								</li>
 								<li class="list-info">
 									<span class="info-title">班主任手机号</span>
-									<span class="info-con">${studentInfo.yddh}</span>
+									<span class="info-con" id="bzrdh"></span>
 								</li>
 								<li class="list-info">
 									<span class="info-title">宿舍名称</span>
-									<span class="info-con">${studentInfo.ssmc}</span>
+									<span class="info-con" id="ssmc"></span>
 								</li>
 								<li class="list-info">
 									<span class="info-title">是否领取钥匙</span>
-									<span class="info-con" id="yaoshi">${studentInfo.sfjf}</span>
+									<span class="info-con" id="yaoshi"></span>
 								</li>
 							</ul>
 						</div>

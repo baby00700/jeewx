@@ -87,6 +87,8 @@
         $.ajax({
         type : "post",
         dataType : "json",
+        async:false,
+        timeout:5000,
         url : "mobileStudentController.do?doMyDrom",
         success : function(data) {
         if (data.success == true) {
@@ -124,8 +126,15 @@
         $(".tip").stop().fadeIn().html("暂无宿舍信息<br><br><a href='mobileStudentController.do?goMain'>返回主页</a>")
         }
         },
+        complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+        　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+        　　　　　
+        　　　　　 alert("连接超时");
+        　　　　}
+        },
         error : function(msg) {
         alert("error:" + msg);
+        console.log(msg);
 
         }
         });

@@ -82,10 +82,10 @@
 			<div class="btn">
 				<input type="submit" id="button" name="button" onclick="doSubmit()" value="登录" class="sub" />
 			</div>
-			<div class="link">
-				<span class="one"><a href="#">用户注册</a></span> <span class="two"><a
-					href="#">忘记密码？</a></span>
-			</div>
+			<%--<div class="link">--%>
+				<%--<span class="one"><a href="#">用户注册</a></span> <span class="two"><a--%>
+					<%--href="#">忘记密码？</a></span>--%>
+			<%--</div>--%>
 		</div>
 </body>
 </html>

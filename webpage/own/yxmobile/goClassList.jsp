@@ -84,7 +84,7 @@
     },
     complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
     　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-    　　　　　 ajaxTimeoutTest.abort();
+    　　　　
     　　　　　 alert("连接超时");
     　　　　}
     }

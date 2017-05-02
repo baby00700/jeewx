@@ -60,14 +60,14 @@
 					<li class="xinxi-list"><span class="xinxi-title">姓名</span><span class="xinxi-con">${studentInfo.xm}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">性别</span><span class="xinxi-con" id="xb">${studentInfo.xb}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">民族</span><span class="xinxi-con">${studentInfo.mzmc }</span></li>
-					<li class="xinxi-list"><span class="xinxi-title">籍贯</span><span class="xinxi-con">${studentInfo.sfmc}</span></li>
+					<li class="xinxi-list" id="sf"><span class="xinxi-title">籍贯</span><span class="xinxi-con">${studentInfo.sfmc}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">身高(cm)</span><span class="xinxi-con">${studentInfo.xssg}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">体重(cm)</span><span class="xinxi-con">${studentInfo.xstz}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">高考分数</span><span class="xinxi-con">${studentInfo.cj}</span></li>
 	
 					<li class="xinxi-list"><span class="xinxi-title">毕业学校</span><span class="xinxi-con">${studentInfo.byxx}</span></li>
-					<li class="xinxi-list"><span class="xinxi-title">录取学院</span><span class="xinxi-con">${studentInfo.xymc }</span></li>
-					<li class="xinxi-list"><span class="xinxi-title">录取专业</span><span class="xinxi-con">${studentInfo.zymc }</span></li>
+					<li class="xinxi-list" id="lqxy"><span class="xinxi-title">录取学院</span><span class="xinxi-con">${studentInfo.xymc }</span></li>
+					<li class="xinxi-list" id="lqzy"><span class="xinxi-title">录取专业</span><span class="xinxi-con">${studentInfo.zymc }</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">身份证号</span><span class="xinxi-con">${studentInfo.sfzh}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">出生日期</span><span class="xinxi-con" id="csrq">${studentInfo.csrq}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">政治面貌</span><span class="xinxi-con">${studentInfo.zzmm}</span></li>
