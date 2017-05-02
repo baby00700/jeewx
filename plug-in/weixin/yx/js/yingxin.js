@@ -31,6 +31,12 @@
 
 $(document).ready(function() {
 
+
+
+
+
+
+
 	//alert(typeof csrq);
 	//	$("#pagepcState").css("display","block");   
 	//var oldTime = (new Date("2012/12/25 20:11:11")).getTime();
@@ -379,12 +385,14 @@ $(document).ready(function() {
 						}
 					}
 				} else {
+
+
 					liucheng = 0;
 					console.log(liucheng + "//////");
 				}
 
 			}
-            benciliucheng = liucheng = 2; //流程控制
+            benciliucheng = liucheng; //流程控制
 			//默认状态	默认头部本步骤高亮 默认所获取的状态之前的页面不可见 默认显示本次流程状态页面
 			//将按钮样式变化以及切换div封装为函数//初始状态下按钮
 			function buttonclick(buttn) {
@@ -1065,6 +1073,8 @@ $(document).ready(function() {
 
 			});
 
+
+
 			//			//page6支付
 			//
 			//			//判断是否要付款；若要付款则将底部按钮变为付款
@@ -1124,6 +1134,54 @@ $(document).ready(function() {
 			//					$("#xuangoubut").removeClass("subbut").addClass("subbut-visited");
 			//				});
 			//			});
+
+
+
+            if(liucheng==3){
+                //为下一页准备
+                $.ajax({
+                    type : "post",
+                    dataType : "json",
+                    timeout:5000,
+                    url : "mobileStudentController.do?getSSxx",
+                    success : function(data) {
+                        if (data.success == true) {
+                            var obj = $.parseJSON(data.msg);
+
+
+                            $("#bjmc").html(obj.bjmc);
+                            $("#bzr").html(obj.bzr);
+                            $("#bzrdh").html(obj.bzrdh);
+                            $("#ssmc").html(obj.ssmc);
+                            var ifyaoshi= obj.yslq;
+                            if(ifyaoshi=="N"){
+                                $("#yaoshi").html("否");
+                            }else{
+                                $("#yaoshi").html("是");
+                            }
+
+
+
+
+                        } else {
+                            // alert("数据异常");
+                        }
+                    },
+                    error : function(msg) {
+                        alert("error:" + msg);
+                    },
+                    complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                        if(status=='timeout'){//超时,status还有success,error等值的情况
+
+                            // alert("连接超时");
+                        }
+                    }
+                });
+
+            }
+
+
+
 
 			//page7
 			//抵校信息页 radio  赋值
@@ -1199,6 +1257,48 @@ $(document).ready(function() {
 			console.log(wenti4);
 			console.log(wenti5);
 			$("#dixiaobut").click(function() {
+                //为下一页准备
+                $.ajax({
+                    type : "post",
+                    dataType : "json",
+                    timeout:5000,
+                    url : "mobileStudentController.do?getSSxx",
+                    success : function(data) {
+                        if (data.success == true) {
+                            var obj = $.parseJSON(data.msg);
+
+
+                            $("#bjmc").html(obj.bjmc);
+                            $("#bzr").html(obj.bzr);
+                            $("#bzrdh").html(obj.bzrdh);
+                            $("#ssmc").html(obj.ssmc);
+                            var ifyaoshi= obj.yslq;
+                            if(ifyaoshi=="N"){
+                                $("#yaoshi").html("否");
+                            }else{
+                                $("#yaoshi").html("是");
+                            }
+
+
+
+
+                        } else {
+                            alert("数据异常");
+                        }
+                    },
+                    error : function(msg) {
+                        alert("error:" + msg);
+                    },
+                    complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                        if(status=='timeout'){//超时,status还有success,error等值的情况
+
+                            alert("连接超时");
+                        }
+                    }
+                });
+
+
+
 				//				if(dixiaoTime==undefined){
 				//					alert('khfsdviwf');
 				//				}
@@ -1232,6 +1332,7 @@ $(document).ready(function() {
 						type: "post",
 						url: "mobileStudentController.do?dosaveSchoolReport",
 						dataType: "json",
+                        timeout:5000,
 						data: {
 							info: JSON.stringify(info)
 						},
@@ -1249,7 +1350,7 @@ $(document).ready(function() {
                         $(this).removeClass("subbut").addClass("subbut-visited");
 
                         $("#page3").stop().fadeOut();
-                    $("#page4").stop().fadeIn();
+                   		$("#page4").stop().fadeIn();
 
 
 					
@@ -1258,14 +1359,27 @@ $(document).ready(function() {
 					//$("#fdyxm").html(fdyxm);
 					
 				} else {
-					alert("有未作答的项！");
+
+                    $('#Xqueren').stop().fadeIn();
+                    $("#wenzi-con p").text("有未作答的项！");
+                    $("#Xbbut").show();
+                    //$("#wenzi-con p").text("分班失败！请联系xxx后继续进行报道流程");
+                    $("#Xbbut").click(function() {
+                        $("#Xqueren").stop().fadeOut();
+                    });
 				}
 
 			});
 		},
 		error: function(msg) {
 			alert("error:" + msg);
-		}
+		},
+        complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+            if(status=='timeout'){//超时,status还有success,error等值的情况
+
+                alert("连接超时");
+            }
+        }
 	});
 
 	//判断性别
