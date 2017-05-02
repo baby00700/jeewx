@@ -143,7 +143,7 @@
 		$(document).ready(function() {
 			//返回主页跳转
 			$("#goMain").click(function(){
-				window.location.href="mobileStudentController.do?goMain";
+				window.location.href="mobileStudentController.do?goLogin";
 			});
 			//判断xinxi-con是否为null
 			var ornull = $(".biao-con li").length;

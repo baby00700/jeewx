@@ -123,7 +123,7 @@
 
         //alert(data.success);
         $(".jiazai").stop().fadeOut();
-        $(".tip").stop().fadeIn().html("暂无宿舍信息<br><br><a href='mobileStudentController.do?goMain'>返回主页</a>")
+        $(".tip").stop().fadeIn().html("暂无宿舍信息<br><br><a href='mobileStudentController.do?goLogin'>返回主页</a>")
         }
         },
         complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
