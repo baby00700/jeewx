@@ -22,14 +22,14 @@
 
 
 	<script type="text/javascript">
-    //var stuaddr = "${studentInfo.address }";
-    var rows = 3;//每页显示记录数
+
+            var rows = 3;//每页显示记录数
 	    	var page = 1;//当前页
 	    	var total = 0;//总记录数
 	    	var field = "id,title,columnId,summary,createDate,imageName,imageHref,accountid,";//字段
 	    	var sort = "createDate";
 	    	var order = "desc";
-	    	var columnId = "402881e44695183a01469522f7d20019";//当前栏目id// 
+	    	var columnId = "402881e44695183a01469522f7d20019";//当前栏目id//
 	    	var $moreBtn = $("#j-viewmore");//显示更多按钮
 		    //数据加载
 		    function loadData(){
@@ -46,7 +46,7 @@
 	                            $.each(data, function(key, value){
 		                            if(key=="rows"){
 			                            for(var i = 1; i < value.length; i++){
-				                        	console.log("article",value[i]);
+				                        //	console.log("article",value[i]);
 				                        	var title1=value[0].title;
 				                        	var imageHref1=value[0].imageHref;
 				                        	var id1=value[0].id;
@@ -58,19 +58,19 @@
 				                    		var createDate=value[i].createDate;
 				                    		var idurl="cmsController.do?goPage&page=article&articleid="+id;
 				                    		var datecon =createDate.substr(0,10);
-				                        	console.log(imageHref);
-				                        	console.log(title);
-				                        	console.log(id);
-				                        	console.log(summary);
+				                        	//console.log(imageHref);
+				                        	//console.log(title);
+				                        	//console.log(id);
+				                        	//console.log(summary);
 			                            	//setData(value[i]);
-			                            	var htmlcon='<div class="list"><a href='+idurl+	'><div class="box"><div class="left"><img src='+imageHref+'></div><div class="right"><h1>'+title+'</h1><p><font>'+summary+'</font></p><span>'+datecon+'</span></p></div></div></a></div>';                           	
+			                            	var htmlcon='<div class="list"><a href='+idurl+	'><div class="box"><div class="left"><img src='+imageHref+'></div><div class="right"><h1>'+title+'</h1><p><font>'+summary+'</font></p><span>'+datecon+'</span></p></div></div></a></div>';
 			                            	$("#list").append(htmlcon);
 			                            }
 			                            	var htmlcon1='<a href='+idurl1+'><div class="tp" id="tp">'+'<img src='+imageHref1+'><span>'+title1+'</span>'+'</div></a>'
 			                            $("#tp").html(htmlcon1);
-			                           	 console.log(imageHref1);
-			                           	 console.log(title1);
-			                             console.log(id1);
+			                           	 //console.log(imageHref1);
+			                           	// console.log(title1);
+			                            //	 console.log(id1);
 			                        }
 			                        if(key=="total"){
 			                        	total = value;
@@ -87,10 +87,10 @@
 	            });
 			}
 			loadData();
-			
+
 
 	</script>
-	  
+
 	<body>
 		<div class="zhezhao-queren">
 			<div class="querenkuang">
@@ -106,29 +106,29 @@
 		<div class="stuinfo">
 			<div class="jibenxinxi">
 				<div class="touxiang"></div>
+
+
 				<div class="wenzi">
 					<div class="xingming">
-						录取姓名：<span class="shuju" id="mingzi">${studentInfo.xm}</span><span id="laizi">来自 <span id="diqu">${studentInfo.sfmc }</span>
-						</span>
+    录取姓名：
+    <span class="shuju" id="mingzi">${studentInfo.xm}</span><a href="mobileStudentController.do?myinfo#sf"><span id="laizi">来自 <span id="diqu">${studentInfo.sfmc }</span>
+	</span></a>
 					</div>
 					<div class="luquxibu">
-						录取院系：<span class="shuju" id="luqubuxi">${studentInfo.xymc }</span>
+	录取院系：<a href="mobileStudentController.do?myinfo#lqxy"><span class="shuju" id="luqubuxi">${studentInfo.xymc }</span></a>
 					</div>
 					<div class="luquzhuanye">
-						录取专业：<span class="shuju" id="luquzhuanye">${studentInfo.zymc }</span>
+	录取专业：<a href="mobileStudentController.do?myinfo#lqzy"><span class="shuju" id="luquzhuanye">${studentInfo.zymc }</span></a>
 					</div>
-    <div class="zt" style="position:relative">
-    当前状态：
-    <span class="luquzhuanye" id="bddone" style="color:red;display: none">
-    已完成报名！
-    </span>
+					<div class="zt" style="position:relative">
+					当前状态：
+							<span class="zhuangtaicon" id="bddone" style="color:red;">
+							已完成报名！
+							</span>
+  <span class="shuaxinmain"></span>
 
-	<span
-	style="top:1px;display:inline-block;color:#1296DB;width:16px;height:16px;position:absolute;background-image:
-	url(plug-in/weixin/yx/images/shuaxin.png);background-size:100% 100%;" onclick="reloadout()"></span>
-	<span style="margin-left:17px;font-size:10pt" onclick="reloadout()">刷新</span>
 
-    </div>
+					</div>
 
 				</div>
 
@@ -140,17 +140,17 @@
 				</div>
 				<div class="xiaoyouxiangqing">
 
-					<div class="xiangqingshu" id="tongbanji">
-						<div class="tongbanji-s">${aggEntity.zyCount }</div>
-						<div class="tongbanji-z">同专业</div>
-					</div>
 					<div class="xiangqingshu" id="tongzhuanye">
-						<div class="tongzhuanye-s">${aggEntity.bjCount }</div>
-						<div class="tongzhuanye-z">同班级</div>
+						<div class="tongzhuanye-s"></div>
+						<div class="tongzhuanye-z">专业人数</div>
+					</div>
+					<div class="xiangqingshu" id="tongbanji">
+						<div class="tongbanji-s"></div>
+						<div class="tongbanji-z">班级人数</div>
 					</div>
 					<div class="xiangqingshu" id="tongxueyuan">
-						<div class="tongxueyuan-s">${aggEntity.ssCount }</div>
-						<div class="tongxueyuan-z">同宿舍</div>
+						<div class="tongsushe-s"></div>
+						<div class="tongsushe-z">宿舍类型</div>
 					</div>
 				</div>
 			</div>
@@ -191,13 +191,13 @@
 			<div class="news_img" style="margin-top:8px;">
 				<a href="#">
 					<div class="tp" id="tp">
-						
+
 					</div>
 				</a>
 			</div>
 		</div>
 		<div id="list">
-			
+
 		</div>
 		<div class="more" style="width:100%;background-color: #fff;">
 				<a href="cmsController.do?goPage&page=menu&id=402881e44695183a01469522f7d20019">加载更多</a>
@@ -206,37 +206,109 @@
 	</body>
 
 	<script>
+	//function shuxinX(){
+		//刷新方法
+        var sfjf;
+		function reloadout() {
 
-    //刷新方法
-    function reloadout() {
+			$.ajax({
+				type: "post",
+				timeout:5000,
+				url: "mobileStudentController.do?refresh",
+				async: true,
+				success: function(data) {
 
-	$.ajax({
-	type: "post",
-	timeout:5000,
-	url: "mobileStudentController.do?refresh",
-	async: true,
-	success: function(data) {
-	console.log(data);
-	location.reload(true);
-	},
-	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-	　　　　　
-	　　　　　 alert("连接超时");
-	　　　　}
-	}
-	});
-    }
+                     sfjf="${studentInfo.sfjf}";
+					window.location.reload(true);
+
+				},
+				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+				　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+				　　　　　 alert("连接超时");
+				　　　　}
+				}
+			});
+		}
+
+
+		var throttle = function (fn, delay, atleast) {
+			var timer = null;
+			var previous = null;
+			return function () {
+				var now = +new Date();
+				if ( !previous ) previous = now;
+				if ( now - previous > atleast ) {
+
+					fn();
+					previous = now;
+				} else {
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+					fn();
+				}, delay);
+				}
+			}
+		};
+
+		var f = throttle(reloadout, 500,2000);
+
+
+
+
+	$(".shuaxinmain").toggle(function() {
+		$(this).removeClass("xuanzhuan1").addClass("xuanzhuan0");
+			setTimeout(f(), 100);
+		},
+		function() {
+			$(this).removeClass("xuanzhuan0").addClass("xuanzhuan1");
+			setTimeout(f(), 100);
+		}
+	);
 
 
 	$(document).ready(function() {
+
+
+	$.ajax({
+		type : "post",
+		dataType : "json",
+		url : "mobileStudentController.do?getSumCount",
+		async:true,
+		timeout:5000,
+		success : function(data) {
+		var obj = $.parseJSON(data.msg);
+			//alert(obj.bjcount+"**" + obj.zycount +"**"+ obj.sscount);
+		var bjcount=obj.bjcount;
+		var zycount=obj.zycount;
+		var sscount=obj.sscount;
+		$(".tongbanji-s").html(bjcount);
+		$(".tongzhuanye-s").html(zycount);
+		$(".tongsushe-s").html(sscount);
+
+		},
+		complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+		　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+		　　　　　
+		　　　　　 alert("连接超时");
+		　　　　}
+		},
+		error : function(msg) {
+			alert("error:" + msg);
+		}
+	});
+
+
+
+
+
+
 	var isbddone="${studentInfo.sfyx}";
-	var sfjf = "${studentInfo.sfjf}";
+
 
 	if(sfjf=="N"){
-	$("#bddone").show().html("未缴费！").next().show().next().show();;
+	$("#bddone").show().html("未缴费！").next().show().next().show();
 	}else{
-	$("#bddone").show().html("已缴费！").next().show().next().show();;
+	$("#bddone").show().html("已缴费！").next().show().next().show();
     }
 
 
@@ -250,73 +322,73 @@
 			//验证电脑端是否有数据
 			var flowname = "${studentInfo.flowname}";
 			var iskey = "${studentInfo.sfcollar_key}";
-			if((flowname == "" || flowname == "null") && iskey == "N") {
+				if((flowname == "" || flowname == "null") && iskey == "N") {
 
-				$.ajax({
-					type: "post",
-					dataType: "json",
-	timeout : 5000,//超时5秒
-					url: "mobileStudentController.do?isRegister",
-					success: function(data) {
-						var su = data.success;
-						var obj = data.msg;
-						if(su == true) {
-							var sfjf = "${studentInfo.sfjf}"; //是否缴费；
-							//sfjf = "Y";
-							if(sfjf == "Y") {
-								//window.location.href = "mobileStudentController.do?index";
+					$.ajax({
+						type: "post",
+						dataType: "json",
+						timeout : 5000,//超时5秒
+						url: "mobileStudentController.do?isRegister",
+						success: function(data) {
+							var su = data.success;
+							var obj = data.msg;
+							if(su == true) {
+								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
+								//sfjf = "Y";
+								if(sfjf == "Y") {
+									//window.location.href = "mobileStudentController.do?index";
+								} else {
+									$(".zhezhao-queren").stop().fadeIn();
+									$("#querenbut-main").show();
+									$("#querenbut-main").click(function() {
+										$(".zhezhao-queren").stop().fadeOut();
+									});
+
+									$(".queren-wenzi p").text("您未缴费！请到5教一楼大厅缴费后进行报道！");
+								}
+
 							} else {
 								$(".zhezhao-queren").stop().fadeIn();
-								$("#querenbut-main").show();
 								$("#querenbut-main").click(function() {
 									$(".zhezhao-queren").stop().fadeOut();
 								});
-
-								$(".queren-wenzi p").text("您未缴费！请到5教一楼大厅缴费后进行报道！");
+								$("#querenbut-main").show();
+								$(".queren-wenzi p").text(obj);
+								//alert(obj);
 							}
-
-						} else {
-							$(".zhezhao-queren").stop().fadeIn();
-							$("#querenbut-main").click(function() {
-								$(".zhezhao-queren").stop().fadeOut();
-							});
-							$("#querenbut-main").show();
-							$(".queren-wenzi p").text(obj);
-							//alert(obj);
+						},
+						error: function(msg) {
+							alert("error:" + msg);
+						},
+						complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+					　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+					　　　　　
+					　　　　　 alert("连接超时");
+					　　　　}
 						}
-					},
-					error: function(msg) {
-						alert("error:" + msg);
-	},
-	complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-	　　　　　 ajaxTimeoutTest.abort();
-	　　　　　 alert("连接超时");
-	　　　　}
-					}
-				});
+					});
 
-			} else {
+				} else {
 
-				$(".zhezhao-queren").stop().fadeIn();
-				$("#main-quxiao").show();
-				$("#main-querenbut").show();
-				$("#main-quxiao").click(function() {
-					$(".zhezhao-queren").stop().fadeOut();
-				});
-				$("#main-querenbut").click(function() {
-					window.location.href = "mobileStudentController.do?myinfo";
-				});
+					$(".zhezhao-queren").stop().fadeIn();
+					$("#main-quxiao").show();
+					$("#main-querenbut").show();
+					$("#main-quxiao").click(function() {
+						$(".zhezhao-queren").stop().fadeOut();
+					});
+					$("#main-querenbut").click(function() {
+						window.location.href = "mobileStudentController.do?myinfo";
+					});
 
-				$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
-				//window.location.href = "mobileStudentController.do?index";
-			};
-				
+					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
+					//window.location.href = "mobileStudentController.do?index";
+				};
+
 			}else{
                   $("#bddone").show().html("已完成报道！").next().hide().next().hide();
 			}
 
-			
+
 
 			$("#zizhubaodao").click(function() {
 			if(isbddone=="N"){
@@ -414,7 +486,7 @@
 
 			}
 
-				
+
 			});
 		});
 	</script>
