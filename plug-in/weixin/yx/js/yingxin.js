@@ -451,6 +451,7 @@ $(document).ready(function() {
 			//page1
 			
 			$("#gerenxinxibut").on("click", function() {
+
 				//判断必填项是否为空
 				//定义变量
 				var stmobile1 = $("#inputout p").html();
@@ -530,6 +531,7 @@ $(document).ready(function() {
 				if(mobile == "" || syd == "" || jtdz == "" || xssg == "" || xstz == "" || fzcc == "none" || xzcc == "none") {
 					alert('带"*"的为必填项');
 				} else {
+                    $(".jiazai").stop().fadeIn(1000);
 					if(otjt1 == true || otjt2 == true || otjt2 == true) {
 						
 						//mobileStudentController.do?generatingClass//生成班级
@@ -564,6 +566,7 @@ $(document).ready(function() {
 												console.log(bmobj);
 												$("#page1").stop().fadeOut();
 												$("#page2").stop().fadeIn();
+                                                $(".jiazai").stop().fadeOut(1000);
 												n = 1;
 												isn1=n;
 												gaoliangtop(n);
@@ -687,6 +690,7 @@ $(document).ready(function() {
 				});
 
 											} else {
+                                                $(".jiazai").stop().fadeOut(1000);
 												console.log(bmobj);
 												//提示报名失败无法进入下一步
 												$('#fbbm-queren').stop().fadeIn();
@@ -700,6 +704,7 @@ $(document).ready(function() {
 											}
 										},
 										error: function() {
+                                            $(".jiazai").stop().fadeOut(1000);
 											$('#fbbm-queren').stop().fadeIn();
 											//$("#wenzi-con").text(obj);
 											$("#baoming-fbbut").show();
@@ -713,6 +718,7 @@ $(document).ready(function() {
 									//b报名方法end
 
 								} else {
+                                    $(".jiazai").stop().fadeOut(1000);
 									console.log(obj);
 									//分班遮罩层提示分班失败并无法进入下一步
 									$('#fbbm-queren').stop().fadeIn();
@@ -960,6 +966,8 @@ $(document).ready(function() {
                         "chbm": chuangwei00
 					}];
 					$("#sushe-querenbut").on("click", function() {
+                        $("#sushe-querenzz").stop().fadeOut();
+						$(".jiazai").stop().fadeIn(800);
 						//ajax
 						$.ajax({
 							type: "post",
@@ -975,7 +983,7 @@ $(document).ready(function() {
 								console.log('success');
 
 								if(data.success==true){
-
+                                    $(".jiazai").stop().fadeOut(800);
 									//alert(data.msg);
 									$("#page2").stop().fadeOut();
 									$("#page3").stop().fadeIn();
@@ -986,6 +994,7 @@ $(document).ready(function() {
 									benciliucheng++;
 									buttonclick(buttn);
 								}else{
+                                    $(".jiazai").stop().fadeOut(800);
                                     //alert(data.msg);
                                     $("#sushe-queren-z p").text(data.msg);
                                     $("#sushe-quxiao").hide();
@@ -1257,6 +1266,7 @@ $(document).ready(function() {
 			console.log(wenti4);
 			console.log(wenti5);
 			$("#dixiaobut").click(function() {
+                $(".jiazai").stop().fadeIn(800);
                 //为下一页准备
                 $.ajax({
                     type : "post",
@@ -1283,6 +1293,7 @@ $(document).ready(function() {
 
 
                         } else {
+                            $(".jiazai").stop().fadeOut(800);
                             alert("数据异常");
                         }
                     },
@@ -1339,18 +1350,20 @@ $(document).ready(function() {
 						async: true,
 						success: function(data) {
 							console.log(data.msg);
+                            n = 3;
+                            gaoliangtop(n);
+                            benciliucheng++;
+                            $(".jiazai").stop().fadeOut(800);
+                            $(this).removeClass("subbut").addClass("subbut-visited");
+
+                            $("#page3").stop().fadeOut();
+                            $("#page4").stop().fadeIn();
 						},
 						error: function(data) {
 							console.log(data.msg);
 						}
 					});
-                        n = 3;
-                        gaoliangtop(n);
-                        benciliucheng++;
-                        $(this).removeClass("subbut").addClass("subbut-visited");
 
-                        $("#page3").stop().fadeOut();
-                   		$("#page4").stop().fadeIn();
 
 
 					
@@ -1359,7 +1372,7 @@ $(document).ready(function() {
 					//$("#fdyxm").html(fdyxm);
 					
 				} else {
-
+                    $(".jiazai").stop().fadeOut(800);
                     $('#Xqueren').stop().fadeIn();
                     $("#wenzi-con p").text("有未作答的项！");
                     $("#Xbbut").show();
