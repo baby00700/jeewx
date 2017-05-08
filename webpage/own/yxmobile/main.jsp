@@ -22,6 +22,7 @@
 
 
 	<script type="text/javascript">
+			var stuaddr="${studentInfo.address }";
 
             var rows = 3;//每页显示记录数
 	    	var page = 1;//当前页
@@ -100,7 +101,7 @@
 				<div class="conbut" id="querenbut-main" style="width:100%;text-align: center;line-height: 47px;display:none">确定</div>
     <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid
     #ccc">取消</div>
-    <div class="conbut" id="main-querenbut" style="display:none;">继续</div>
+    <div class="conbut" id="main-querenbut" style="display:none;">确定</div>
 			</div>
 		</div>
 		<div class="stuinfo">
@@ -122,7 +123,7 @@
 					</div>
 					<div class="zt" style="position:relative">
 					当前状态：
-							<span class="zhuangtaicon" id="bddone" style="color:red;">
+							<span class="zhuangtaicon" id="bddone" style="color:red;white-space: nowrap;">
 							已完成报名！
 							</span>
   <span class="shuaxinmain"></span>
@@ -217,8 +218,9 @@
 				async: true,
 				success: function(data) {
 
-                     sfjf="${studentInfo.sfjf}";
-					window.location.reload(true);
+                    	 sfjf="${studentInfo.sfjf}";
+
+						window.location.reload(true);
 
 				},
 				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
@@ -304,10 +306,14 @@
 	var isbddone="${studentInfo.sfyx}";
 
 
-	if(sfjf=="N"){
+	sfjf="${studentInfo.sfjf}";
+
+	if(sfjf=="N"||sfjf=="undefined"||sfjf==undefined||sfjf==null||sfjf=="null"){
+
 	$("#bddone").show().html("未缴费！").next().show().next().show();
 	}else{
 	$("#bddone").show().html("已缴费！").next().show().next().show();
+
     }
 
 
@@ -316,11 +322,13 @@
 
     //验证是否院系报到
 
+
 			if(isbddone=="N"){
-				//是否领取要是
+
 			//验证电脑端是否有数据
 			var flowname = "${studentInfo.flowname}";
 			var iskey = "${studentInfo.sfcollar_key}";
+
 				if((flowname == "" || flowname == "null") && iskey == "N") {
 
 					$.ajax({
@@ -333,7 +341,7 @@
 							var obj = data.msg;
 							if(su == true) {
 								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
-								//sfjf = "Y";
+
 								if(sfjf == "Y") {
 									//window.location.href = "mobileStudentController.do?index";
 								} else {
@@ -367,21 +375,37 @@
 						}
 					});
 
-				} else {
-
+				} else  {
+					if(iskey=="Y"){
+					alert("您已领取钥匙,请到"+stuaddr+"进行报道!");
 					$(".zhezhao-queren").stop().fadeIn();
 					$("#main-quxiao").show();
 					$("#main-querenbut").show();
 					$("#main-quxiao").click(function() {
-						$(".zhezhao-queren").stop().fadeOut();
+					$(".zhezhao-queren").stop().fadeOut();
 					});
 					$("#main-querenbut").click(function() {
-						window.location.href = "mobileStudentController.do?myinfo";
+					window.location.href = "mobileStudentController.do?myinfo";
 					});
 
 					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
 					//window.location.href = "mobileStudentController.do?index";
-				};
+					}else{
+					$(".zhezhao-queren").stop().fadeIn();
+					$("#main-quxiao").show();
+					$("#main-querenbut").show();
+					$("#main-quxiao").click(function() {
+					$(".zhezhao-queren").stop().fadeOut();
+					});
+					$("#main-querenbut").click(function() {
+					window.location.href = "mobileStudentController.do?myinfo";
+					});
+
+					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
+					//window.location.href = "mobileStudentController.do?index";
+					}
+
+					};;
 
 			}else{
                   $("#bddone").show().html("已完成报道！").next().hide().next().hide();
@@ -403,7 +427,7 @@
 							var obj = data.msg;
 							if(su == true) {
 								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
-								//sfjf = "Y";
+
 								if(sfjf == "Y") {
 									$(".zhezhao-queren").stop().fadeIn();
 									$("#main-quxiao").show();
