@@ -9,6 +9,7 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport"
         content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
         <title>我的宿舍</title>
         <script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js"></script>
         <link href="plug-in/weixin/yx/css/mui.css" rel="stylesheet"
@@ -16,6 +17,7 @@
         <link href="plug-in/weixin/yx/css/yingxin.css" rel="stylesheet"
         type="text/css">
         <link href="plug-in/weixin/yx/css/loading.css" rel="stylesheet" type="text/css">
+
         <style type="text/css">
         * {
         margin: 0;
@@ -123,7 +125,7 @@
 
         //alert(data.success);
         $(".jiazai").stop().fadeOut();
-        $(".tip").stop().fadeIn().html("暂无宿舍信息<br><br><a href='mobileStudentController.do?goLogin'>返回主页</a>")
+        $(".tip").stop().fadeIn().html("暂无宿舍信息<br><br><a href='mobileStudentController.do?goMain'>返回主页</a>")
         }
         },
         complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
@@ -142,7 +144,7 @@
         </script>
         </head>
         <style>
-        /*加载*/
+        /*加载 开始*/
         .jiazai{
         width:100%;
         height:100%;
@@ -173,6 +175,7 @@
             text-align:center;
 
             }
+            <%--加载结束--%>
 
         .maoboli{
         -webkit-filter: blur(10px);
@@ -182,7 +185,7 @@
         <body>
         <div class="tip" style="display:none"></div>
         <div class="jiazai">
-        <div id="spinner"></div>
+          <div id="spinner"></div>
         </div>
         <div class="wrap">
         <div class="top">
@@ -200,7 +203,7 @@
         <script>
         //返回主页跳转
         $("#goMain").click(function(){
-        window.location.href="mobileStudentController.do?goMain";
+                window.location.href="mobileStudentController.do?goMain";
         });
         </script>
         </html>

@@ -218,9 +218,9 @@
 				async: true,
 				success: function(data) {
 
-                    	 sfjf="${studentInfo.sfjf}";
+                    	sfjf="${studentInfo.sfjf}";
 
-						window.location.reload(true);
+						window.location.href="mobileStudentController.do?goLogin&"+new Date();
 
 				},
 				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
@@ -304,7 +304,7 @@
 
 
 	var isbddone="${studentInfo.sfyx}";
-
+	isbddone="N";
 
 	sfjf="${studentInfo.sfjf}";
 

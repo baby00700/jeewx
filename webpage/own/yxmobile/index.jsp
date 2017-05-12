@@ -14,6 +14,7 @@
 		<link href="plug-in/weixin/yx/css/yingxin.css" rel="stylesheet" type="text/css">
 		<link href="plug-in/weixin/yx/css/mui.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="plug-in/weixin/yx/css/mui.picker.min.css" />
+		<link href="plug-in/weixin/yx/css/loading.css" rel="stylesheet" type="text/css">
 
 		<script src="plug-in/weixin/yx/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 
@@ -67,10 +68,127 @@
 			var bjmc = "${studentInfo.bjmc}";
 			var fdyxm = "${studentInfo.fdyxm}";
 			var yddh = "${studentInfo.yddh}";
+			var jzxm1="${studentInfo.jtmc1}";
+			var jzxm2="${studentInfo.jtmc2}";
+			var jzxm3="${studentInfo.jtmc3}";
+			var jzdh1="${studentInfo.jtdh1}";
+			var jzdh2="${studentInfo.jtdh2}";
+			var jzdh3="${studentInfo.jtdh3}";
+			var jzgx1="${studentInfo.jtgx1}";
+			var jzgx2="${studentInfo.jtgx2}";
+			var jzgx3="${studentInfo.jtgx3}";
+			var xssg1="${studentInfo.xssg}";
+			var xstz1="${studentInfo.xstz}";
+			var fzcc1="${studentInfo.fzcc}";
+			var xzcc1="${studentInfo.xzcc}";
+
+
+		$(document).ready(function(){
+			if(jzxm1==null||jzxm1=="null"||jzxm1==""){
+				$("#jzxm1").val("");
+			}
+			if(jzxm2==null||jzxm2=="null"||jzxm2==""){
+				$("#jzxm2").val("");
+			}
+			if(jzxm3==null||jzxm3=="null"||jzxm3==""){
+				$("#jzxm3").val("");
+			}
+			if(jzdh1==null||jzdh1=="null"||jzdh1==""){
+				$("#jzdh1").val("");
+			}
+			if(jzdh2==null||jzdh2=="null"||jzdh2==""){
+				$("#jzdh2").val("");
+			}
+			if(jzdh3==null||jzdh3=="null"||jzdh3==""){
+				$("#jzdh3").val("");
+			}
+			if(jzgx1==null||jzgx1=="null"||jzgx1==""){
+				$("#jzgx1").val("");
+			}
+			if(jzgx2==null||jzgx2=="null"||jzgx2==""){
+				$("#jzgx2").val("");
+			}
+			if(jzgx3==null||jzgx3=="null"||jzgx3==""){
+				$("#jzgx3").val("");
+			}
+			if(xssg1==null||xssg1=="null"||xssg1==""){
+				$("#stshengao").val("");
+			}
+			if(xstz1==null||xstz1=="null"||xstz1==""){
+				$("#sttizhong").val("");
+			}
+			
+
+			
+			if(fzcc1==null||fzcc1=="null"||fzcc1==""){
+				$("#fzmoren").val("none");
+				$("#fzmoren").text("请选择");
+				
+			}else{
+				$("#fzmoren").val(fzcc1);
+				$("#fzmoren").text(fzcc1);
+			}
+			
+			if(xzcc1==null||xzcc1=="null"||xzcc1==""){
+				$("#xzmoren").val("none");
+				$("#xzmoren").text("请选择");
+				
+			}else{
+				$("#xzmoren").val(xzcc1);
+				$("#xzmoren").text(xzcc1);
+			}
+			
+
+		});
 		</script>
+
+
+		<style>
+
+			/*加载 开始*/
+			.jiazai{
+			width:100%;
+			height:100%;
+			position:fixed;
+			top:0px;
+			left:0px;
+			z-index:999;
+			}
+
+			#spinner{
+			position:fixed;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			margin:auto;
+			}
+			.tip{
+			height:20px;
+			line-height:20px;
+			width:100%;
+			position:fixed;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			margin:auto;
+			text-align:center;
+
+			}
+			<%--加载结束--%>
+		</style>
 	</head>
 
 	<body>
+
+	<div class="tip" style="display:none"></div>
+	<div class="jiazai" style="display:none;">
+	<div id="spinner"></div>
+	</div>
+
+
+
 		<div class="wrap">
 			<!--
        	作者：1014504021@qq.com
@@ -94,43 +212,8 @@
 						<div class="main">
 							<div class="process">
 								<ul class="wizard-steps">
-									<!--<li>
-										<span class="step">1</span>
-										<span class="title">个人信息</span>
-									</li>-->
-									<!--<li>
-										<span class="step">2</span></a>
-										<span class="title">绿色通道</span>
-									</li>
-									<li>
-										<span class="step">3</span>
-										<span class="title">学杂费</span>
-									</li>
-
-									<li>
-										<span class="step">4</span>
-										<span class="title">班级分配</span>
-									</li>
-
-									<li>
-										<span class="step">5</span>
-										<span class="title">宿舍分配</span>
-									</li>
-
-									<li>
-										<span class="step">6</span>
-										<span class="title">自选用品</span>
-									</li>
 
 
-									<li>
-										<span class="step">7</span>
-										<span class="title">抵校信息</span>
-									</li>
-									<li>
-										<span class="step">8</span>
-										<span class="title">生成报到单</span>
-									</li>-->
 								</ul>
 							</div>
 						</div>
@@ -204,15 +287,15 @@
 													<form class="mui-input-group" id="jiazhang1">
 														<div class="mui-input-row">
 															<label>家长姓名</label>
-															<input type="text" placeholder="请输入姓名" id="jzxm1" class="inputjzxm" maxlength="20" >
+															<input type="text" placeholder="请输入姓名" id="jzxm1" class="inputjzxm" maxlength="20" value="${studentInfo.jtmc1}">
 														</div>
 														<div class="mui-input-row">
 															<label>家长电话</label>
-															<input type="text" placeholder="请输入手机号码" id="jzdh1" class="inputjzdh" maxlength="11">
+															<input type="text" placeholder="请输入手机号码" id="jzdh1" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh1}">
 														</div>
 														<div class="mui-input-row">
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx1" class="inputjzgx" maxlength="5">
+															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx1" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx1}">
 														</div>
 													</form>
 												</ul>
@@ -230,15 +313,15 @@
 													<form class="mui-input-group" id="jiazhang2">
 														<div class="mui-input-row">
 															<label>家长姓名</label>
-															<input type="text" placeholder="请输入姓名" id="jzxm2" class="inputjzxm" maxlength="20">
+															<input type="text" placeholder="请输入姓名" id="jzxm2" class="inputjzxm" maxlength="20" value="${studentInfo.jtmc2}">
 														</div>
 														<div class="mui-input-row">
 															<label>家长电话</label>
-															<input type="text" placeholder="请输入手机号码" id="jzdh2" class="inputjzdh" maxlength="11">
+															<input type="text" placeholder="请输入手机号码" id="jzdh2" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh2}">
 														</div>
 														<div class="mui-input-row">
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx2" class="inputjzgx" maxlength="5">
+															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx2" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx2}">
 														</div>
 													</form>
 												</ul>
@@ -256,15 +339,15 @@
 													<form class="mui-input-group" id="jiazhang3">
 														<div class="mui-input-row">
 															<label>监护人姓名</label>
-															<input type="text" placeholder="请输入姓名" id="jzxm3" class="inputjzxm" maxlength="20">
+															<input type="text" placeholder="请输入姓名" id="jzxm3" class="inputjzxm" maxlength="20" value="${studentInfo.jtmc3}">
 														</div>
 														<div class="mui-input-row">
 															<label>监护人电话</label>
-															<input type="text" placeholder="请输入手机号码" id="jzdh3" class="inputjzdh" maxlength="11">
+															<input type="text" placeholder="请输入手机号码" id="jzdh3" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh3}">
 														</div>
 														<div class="mui-input-row">
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx3" class="inputjzgx" maxlength="5">
+															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx3" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx3}">
 														</div>
 													</form>
 												</ul>
@@ -288,11 +371,11 @@
 									<form class="mui-input-group" style="border:0px; position: static;">
 										<div class="mui-input-row" style="border-bottom:1px solid #eee;height:45px; position: static;">
 											<label>身高(cm)<span style="color:red">*</span></label>
-											<input type="text" placeholder="请输入身高(cm)" style="border:0px" id="stshengao" class="sgtz" maxlength="3">
+											<input type="text" placeholder="请输入身高(cm)" style="border:0px" id="stshengao" class="sgtz" maxlength="3" value="${studentInfo.xssg}">
 										</div>
 										<div class="mui-input-row" style="border-bottom:1px solid #eee;height:45px; position: static;">
 											<label>体重(kg)<span style="color:red">*</span></label>
-											<input type="text" placeholder="请输入体重(kg)" id="sttizhong" class="sgtz" maxlength="3">
+											<input type="text" placeholder="请输入体重(kg)" id="sttizhong" class="sgtz" maxlength="3" value="${studentInfo.xstz}">
 										</div>
 									</form>
 								</div>
@@ -301,7 +384,7 @@
 										<div class="fuhzuang-title">服装尺码<span style="color:red">*</span></div>
 										<div class="select-fuzhuang" >
 											<select name="fzcm" class="select-fz-class" id="fuzhuangchima">
-												<option value="none">请选择</option>
+												<option value="none" id="fzmoren">请选择</option>
 											</select>
 										</div>
 										<div class="youjiantou"></div>
@@ -312,7 +395,7 @@
 										<div class="fuhzuang-title">鞋子尺码<span style="color:red">*</span></div>
 										<div class="select-fuzhuang" >
 											<select name="fzcm" class="select-fz-class" id="xiezichima">
-												<option value="none">请选择</option>
+												<option value="none" id="xzmoren">请选择</option>
 											</select>
 										</div>
 										<div class="youjiantou"></div>
@@ -375,38 +458,7 @@
 						</div>
 					</div>
 					<div class="sushe-fenpei">
-						<!--<div id="sushe-xiaoqu" class="xuan-sushe">
-							<div class="sushe-title">校区</div>
-							<div class="select-sushe" id="select-xiaoqu">
-								<select name="xiaoqu" class="select-sushe-class" id="xiaoqu00">
-									<option value="none">请选择</option>
 
-								</select>
-							</div>
-							<div class="jiazaitubiao" style="display: none;" id="xiaoqujiazai"></div>
-							<div class="youjiantou"></div>
-						</div>
-						<div id="sushe-loudong" class="xuan-sushe">
-							<div class="sushe-title">楼栋</div>
-							<div class="select-sushe" id="select-loudong">
-								<select name="loudong" class="select-sushe-class" id="loudong00">
-									<option value="none">请选择</option>
-								</select>
-							</div>
-							<div class="jiazaitubiao" style="display: none;" id="loudongjiazai"></div>
-							<div class="youjiantou"></div>
-						</div>
-
-						<div id="sushe-louceng" class="xuan-sushe">
-							<div class="sushe-title">楼层</div>
-							<div class="select-sushe" id="select-louceng">
-								<select name="louceng" class="select-sushe-class" id="louceng00">
-									<option value="none">请选择</option>
-								</select>
-							</div>
-							<div class="jiazaitubiao" style="display: none;" id="loucengjiazai"></div>
-							<div class="youjiantou"></div>
-						</div>-->
 
 						<div id="sushe-qinshi" class="xuan-sushe">
 							<div class="sushe-title">寝室号</div>
@@ -437,13 +489,13 @@
 							</div>
 							<div class="conbut" id="sushe-quxiao">取消</div>
 							<div class="conbut" id="sushe-querenbut">确定分配</div>
-	<div class="conbut" id="querenbut-sushe1" style="width:100%;text-align: center;line-height:
+							<div class="conbut" id="querenbut-sushe1" style="width:100%;text-align: center;line-height:
 	47px;display:none">确定</div>
 						</div>
 					</div>
 
 					<div class="subbut" id="xuansushe">确认分配</div>
-					<!--<div class="sub-non subbut-visited">已提交</div>-->
+
 
 				</div>
 				<div class="spage" id="page3">

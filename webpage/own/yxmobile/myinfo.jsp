@@ -71,8 +71,7 @@
 					<li class="xinxi-list"><span class="xinxi-title">身份证号</span><span class="xinxi-con">${studentInfo.sfzh}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">出生日期</span><span class="xinxi-con" id="csrq">${studentInfo.csrq}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">政治面貌</span><span class="xinxi-con">${studentInfo.zzmm}</span></li>
-					<li class="xinxi-list"><span class="xinxi-title">是否单招</span><span class="xinxi-con" id="dz">${studentInfo.sfdz}</span></li>
-					<li class="xinxi-list"><span class="xinxi-title">培养层次</span><span class="xinxi-con">${studentInfo.pycc}</span></li>
+
 					<li class="xinxi-list"><span class="xinxi-title">生源类别</span><span class="xinxi-con">${studentInfo.klmc}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">手机号码</span><span class="xinxi-con">${studentInfo.mobile}</span></li>
 					<li class="xinxi-list"><span class="xinxi-title">班级名称</span><span class="xinxi-con">${studentInfo.bjmc}</span></li>
@@ -143,7 +142,7 @@
 		$(document).ready(function() {
 			//返回主页跳转
 			$("#goMain").click(function(){
-				window.location.href="mobileStudentController.do?goLogin";
+				window.location.href="mobileStudentController.do?goMain";
 			});
 			//判断xinxi-con是否为null
 			var ornull = $(".biao-con li").length;
