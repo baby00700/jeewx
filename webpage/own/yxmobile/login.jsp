@@ -45,12 +45,12 @@
 				}
 				else
 				{
-
-					location.href="mobileStudentController.do?goMain";
+					
+					window.location.href="mobileStudentController.do?goLogin";
 				}
 			},
 			error : function(msg) {
-				alert("error:" + msg);
+				alert("网络不好，请稍后再试！");
 			},
 			complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
 			　　　　if(status=='timeout'){//超时,status还有success,error等值的情况

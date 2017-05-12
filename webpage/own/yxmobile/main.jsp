@@ -107,7 +107,7 @@
 		<div class="stuinfo">
 			<div class="jibenxinxi">
 				<div class="touxiang"></div>
-
+				<!--<div class="loginout">注销</div>-->
 
 				<div class="wenzi">
 					<div class="xingming">
@@ -218,9 +218,8 @@
 				async: true,
 				success: function(data) {
 
-                    	sfjf="${studentInfo.sfjf}";
-
-						window.location.href="mobileStudentController.do?goLogin&"+new Date();
+                     sfjf="${studentInfo.sfjf}";
+					window.location.href="mobileStudentController.do?goLogin&"+new Date();
 
 				},
 				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
@@ -304,16 +303,12 @@
 
 
 	var isbddone="${studentInfo.sfyx}";
-	isbddone="N";
 
-	sfjf="${studentInfo.sfjf}";
-
-	if(sfjf=="N"||sfjf=="undefined"||sfjf==undefined||sfjf==null||sfjf=="null"){
-
+	var sfjf="${studentInfo.sfjf}";
+	if(sfjf=="N"){
 	$("#bddone").show().html("未缴费！").next().show().next().show();
 	}else{
 	$("#bddone").show().html("已缴费！").next().show().next().show();
-
     }
 
 
@@ -324,7 +319,7 @@
 
 
 			if(isbddone=="N"){
-
+				//是否领取要是
 			//验证电脑端是否有数据
 			var flowname = "${studentInfo.flowname}";
 			var iskey = "${studentInfo.sfcollar_key}";
@@ -341,7 +336,7 @@
 							var obj = data.msg;
 							if(su == true) {
 								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
-
+								//sfjf = "Y";
 								if(sfjf == "Y") {
 									//window.location.href = "mobileStudentController.do?index";
 								} else {
@@ -377,35 +372,20 @@
 
 				} else  {
 					if(iskey=="Y"){
-					alert("您已领取钥匙,请到"+stuaddr+"进行报道!");
-					$(".zhezhao-queren").stop().fadeIn();
-					$("#main-quxiao").show();
-					$("#main-querenbut").show();
-					$("#main-quxiao").click(function() {
-					$(".zhezhao-queren").stop().fadeOut();
-					});
-					$("#main-querenbut").click(function() {
-					window.location.href = "mobileStudentController.do?myinfo";
-					});
+						
+						$(".zhezhao-queren").stop().fadeIn();
+						$("#querenbut-main").show();
+						$("#querenbut-main").click(function() {
+							$(".zhezhao-queren").stop().fadeOut();
+						});
 
-					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
-					//window.location.href = "mobileStudentController.do?index";
-					}else{
-					$(".zhezhao-queren").stop().fadeIn();
-					$("#main-quxiao").show();
-					$("#main-querenbut").show();
-					$("#main-quxiao").click(function() {
-					$(".zhezhao-queren").stop().fadeOut();
-					});
-					$("#main-querenbut").click(function() {
-					window.location.href = "mobileStudentController.do?myinfo";
-					});
-
-					$(".queren-wenzi p").text("您已报名,是否查看报名详情？");
-					//window.location.href = "mobileStudentController.do?index";
+						$(".queren-wenzi p").text("您已领取钥匙,请到"+stuaddr+"进行报道!");
+						
+					
+					
 					}
 
-					};;
+				};
 
 			}else{
                   $("#bddone").show().html("已完成报道！").next().hide().next().hide();
@@ -427,7 +407,7 @@
 							var obj = data.msg;
 							if(su == true) {
 								var sfjf = "${studentInfo.sfjf}"; //是否缴费；
-
+								
 								if(sfjf == "Y") {
 									$(".zhezhao-queren").stop().fadeIn();
 									$("#main-quxiao").show();
@@ -476,17 +456,18 @@
                     } else {
                     if(iskey=="Y"){
                                 alert("您已领取钥匙,请到"+stuaddr+"进行报道!");
+								$("#querenbut-main").hide();
                                 $(".zhezhao-queren").stop().fadeIn();
                                 $("#main-quxiao").show();
                                 $("#main-querenbut").show();
                                 $("#main-quxiao").click(function() {
-                                      $(".zhezhao-queren").stop().fadeOut();
-                                 });
+                                $(".zhezhao-queren").stop().fadeOut();
+                                });
                                 $("#main-querenbut").click(function() {
-                                        window.location.href = "mobileStudentController.do?myinfo";
-                                 });
+                                window.location.href = "mobileStudentController.do?myinfo";
+                                });
 
-                            $(".queren-wenzi p").text("您已报名,是否查看报名详情？");
+                                $(".queren-wenzi p").text("您已报名,是否查看报名详情？");
                             //window.location.href = "mobileStudentController.do?index";
                             }else{
                                 $(".zhezhao-queren").stop().fadeIn();
@@ -496,7 +477,7 @@
                                 $(".zhezhao-queren").stop().fadeOut();
                                 });
                                 $("#main-querenbut").click(function() {
-                                window.location.href = "mobileStudentController.do?myinfo";
+								  window.location.href = "mobileStudentController.do?myinfo";
                                 });
 
                                 $(".queren-wenzi p").text("您已报名,是否查看报名详情？");

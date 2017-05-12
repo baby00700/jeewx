@@ -20,7 +20,8 @@
 
 		<script type="text/javascript" src="plug-in/weixin/yx/js/jquery.qrcode.js"></script>
 		<script src="plug-in/weixin/yx/js/yingxin.js" type="text/javascript" charset="utf-8"></script>
-
+		<script src="plug-in/weixin/yx/js/mui.picker.js"></script>
+		
 		<title>新生报名</title>
 	
 		<script type="text/javascript">
@@ -35,7 +36,7 @@
 						console.log(data);
 						//全局变量
 						var sfzh = "${studentInfo.sfzh}";
-						var xb = "${studentInfo.xb}";
+						var xb = "${stuIdentInfo.xb}";
 						var grlc = "${studentInfo.mobileSetid}";
 						var sjh = "${studentInfo.mobile}";
 						var ksh = "${studentInfo.ksh}";
@@ -55,6 +56,7 @@
 			}
 			//全局变量
 			var sfzh = "${studentInfo.sfzh}";
+
 			var xb = "${studentInfo.xb}";
 			var grlc = "${studentInfo.mobileSetid}";
 			var sjh = "${studentInfo.mobile}";
@@ -63,8 +65,10 @@
 			var csrq = "${studentInfo.csrq}";
 			var dixiaoTime;
 			var sfjf = "${studentInfo.sfjf}";
+			var sfdz= "${studentInfo.sfdz}";
+
 			var sfcollar_key = "${studentInfo.sfcollar_key}";
-			var stmobile="${studentInfo.mobile}";
+
 			var bjmc = "${studentInfo.bjmc}";
 			var fdyxm = "${studentInfo.fdyxm}";
 			var yddh = "${studentInfo.yddh}";
@@ -81,7 +85,7 @@
 			var xstz1="${studentInfo.xstz}";
 			var fzcc1="${studentInfo.fzcc}";
 			var xzcc1="${studentInfo.xzcc}";
-
+			
 
 		$(document).ready(function(){
 			if(jzxm1==null||jzxm1=="null"||jzxm1==""){
@@ -118,7 +122,7 @@
 				$("#sttizhong").val("");
 			}
 			
-
+			
 			
 			if(fzcc1==null||fzcc1=="null"||fzcc1==""){
 				$("#fzmoren").val("none");
@@ -247,9 +251,9 @@
 									<li class="xinxi-list"><span class="xinxi-title">身份证号</span><span class="xinxi-con">${studentInfo.sfzh}</span></li>
 									<li class="xinxi-list"><span class="xinxi-title">出生日期</span><span class="xinxi-con" id="csrq">${studentInfo.csrq}</span></li>
 									<li class="xinxi-list"><span class="xinxi-title">政治面貌</span><span class="xinxi-con">${studentInfo.zzmm}</span></li>
-				
-									<li class="xinxi-list"><span class="xinxi-title">手机号码<span style="color:red">*</span></span><span class="xinxi-con" id="inputout"><p style="margin-bottom:0;color:#555"></p><input type="text" class="shoujihao" style="margin-bottom: 0px" autofocus="autofocus" id="stMobile"/></span></li>
-									<li class="xinxi-list"><span class="xinxi-title">生源类别</span><span class="xinxi-con">${studentInfo.klmc}</span></li>
+									<li class="xinxi-list"><span class="xinxi-title">手机号码<span style="color:red">*</span></span><span class="xinxi-con" id="inputout"><p style="margin-bottom:0;color:#555"></p><input type="text" class="shoujihao" style="margin-bottom: 0px;" autofocus="autofocus" id="stMobile"/></span></li>
+                                    <li class="xinxi-list"><span class="xinxi-title">QQ邮箱<span style="color:red">*</span></span><span class="xinxi-con" id="inputout2"><p style="margin-bottom:0;color:#555">请输入邮箱</p><input type="text" class="youxiang" style="margin-bottom: 0px;" autofocus="autofocus"  id="stMail"/></span></li>
+                                    <li class="xinxi-list"><span class="xinxi-title">生源类别</span><span class="xinxi-con">${studentInfo.klmc}</span></li>
 									<li class="xinxi-list"><span class="xinxi-title">籍贯</span><span class="xinxi-con">${studentInfo.sfmc}</span></li>
 									<li class="xinxi-list"><span class="xinxi-title">高考分数</span><span class="xinxi-con">${studentInfo.cj}</span></li>
 									<li class="xinxi-list"><span class="xinxi-title">生源所在地</span><span class="xinxi-con">${studentInfo.syd}</span></li>
@@ -293,11 +297,13 @@
 															<label>家长电话</label>
 															<input type="text" placeholder="请输入手机号码" id="jzdh1" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh1}">
 														</div>
-														<div class="mui-input-row">
+														<div class="mui-input-row" >
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx1" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx1}">
+															<input type="text"  placeholder="请选择与学生亲属关系" id="jzgx1" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx1}" style="text-align: right;height:40px;font-size:10pt">
+														
 														</div>
 													</form>
+													
 												</ul>
 											</div>
 										</li>
@@ -319,11 +325,12 @@
 															<label>家长电话</label>
 															<input type="text" placeholder="请输入手机号码" id="jzdh2" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh2}">
 														</div>
-														<div class="mui-input-row">
+														<div class="mui-input-row " >
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx2" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx2}">
+															<input type="text" placeholder="请选择与学生亲属关系" id="jzgx2" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx2}">
 														</div>
 													</form>
+													
 												</ul>
 											</div>
 										</li>
@@ -345,11 +352,12 @@
 															<label>监护人电话</label>
 															<input type="text" placeholder="请输入手机号码" id="jzdh3" class="inputjzdh" maxlength="11" value="${studentInfo.jtdh3}">
 														</div>
-														<div class="mui-input-row">
+														<div class="mui-input-row " >
 															<label>亲属关系</label>
-															<input type="text" placeholder="请输入与学生亲属关系" id="jzgx3" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx3}">
+															<input type="text" placeholder="请选择与学生亲属关系" id="jzgx3" class="inputjzgx" maxlength="5" value="${studentInfo.jtgx3}">
 														</div>
 													</form>
+													
 												</ul>
 											</div>
 										</li>
@@ -429,10 +437,14 @@
 							<div class="gerenbiaoti-tubiao"></div>
 							<div class="gerenbiaoti-wenzi">个人信息</div>
 						</div>
+						
 						<div class="gerenxinxi-con">
+							<div class="bigTouxiang">
+								<div class="yicun">	</div>	
+							</div>
 							<ul>
-								<li class="xinxi-list">
-									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span></li>
+								<li class="xinxi-list tobig">
+									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span><div class="xiajiantou1"></div></li>
 								<li class="xinxi-list">
 									<span class="xinxi-title">考生号</span><span class="xinxi-con">${studentInfo.ksh}</span></li>
 								<li class="xinxi-list">
@@ -443,6 +455,8 @@
 									<li class="xinxi-list">
 										<span class="xinxi-title">录取专业</span><span class="xinxi-con">${studentInfo.zymc}</span></li>
 									<li class="xinxi-list">
+										<span class="xinxi-title">班级名称</span><span class="xinxi-con">${studentInfo.bjmc}</span></li>
+									<li class="xinxi-list">
 										<span class="xinxi-title">手机号码</span><span class="xinxi-con">${studentInfo.mobile}</span></li>
 								</div>
 								<div class="zhankai">
@@ -450,6 +464,7 @@
 								</div>
 							</ul>
 						</div>
+					
 					</div>
 					<div class="sushefenpei">
 						<div class="sushe-biaoti">
@@ -458,13 +473,11 @@
 						</div>
 					</div>
 					<div class="sushe-fenpei">
-
-
 						<div id="sushe-qinshi" class="xuan-sushe">
 							<div class="sushe-title">寝室号</div>
 							<div class="select-sushe" id="select-qinshi">
-								<select name="qinshihao" class="select-sushe-class" id="qinshi00">
-									<option value="none">请选择</option>
+								<select name="qinshihao" class="select-sushe-class" id="qinshi00" >
+									<!--<option value="none">请选择</option>-->
 								</select>
 							</div>
 							<div class="jiazaitubiao" style="display: none;" id="qinshijiazai"></div>
@@ -482,20 +495,20 @@
 						</div>
 					</div>
 
-					<div class="zhezhao-queren" id="sushe-querenzz">
+					<div class="zhezhao-queren" id="sushe-querenzz" >
 						<div class="querenkuang">
-							<div class="queren-wenzi" id="sushe-queren-z">
+							<div class="queren-wenzi" id="sushe-queren-z" >
 								<p></p>
 							</div>
 							<div class="conbut" id="sushe-quxiao">取消</div>
 							<div class="conbut" id="sushe-querenbut">确定分配</div>
-							<div class="conbut" id="querenbut-sushe1" style="width:100%;text-align: center;line-height:
+	<div class="conbut" id="querenbut-sushe1" style="width:100%;text-align: center;line-height:
 	47px;display:none">确定</div>
 						</div>
 					</div>
 
 					<div class="subbut" id="xuansushe">确认分配</div>
-
+					<!--<div class="sub-non subbut-visited">已提交</div>-->
 
 				</div>
 				<div class="spage" id="page3">
@@ -505,10 +518,14 @@
 							<div class="gerenbiaoti-tubiao"></div>
 							<div class="gerenbiaoti-wenzi">个人信息</div>
 						</div>
+						
 						<div class="gerenxinxi-con">
+							<div class="bigTouxiang">
+								<div class="yicun">	</div>	
+							</div>
 							<ul>
-								<li class="xinxi-list">
-									<span class="xinxi-title">头像</span><span class="xinxi-con"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span></li>
+								<li class="xinxi-list tobig">
+									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span><div class="xiajiantou1"></div></li>
 								<li class="xinxi-list">
 									<span class="xinxi-title">考生号</span><span class="xinxi-con">${studentInfo.ksh}</span></li>
 								<li class="xinxi-list">
@@ -519,6 +536,8 @@
 									<li class="xinxi-list">
 										<span class="xinxi-title">录取专业</span><span class="xinxi-con">${studentInfo.zymc}</span></li>
 									<li class="xinxi-list">
+										<span class="xinxi-title">班级名称</span><span class="xinxi-con">${studentInfo.bjmc}</span></li>
+									<li class="xinxi-list">
 										<span class="xinxi-title">手机号码</span><span class="xinxi-con">${studentInfo.mobile}</span></li>
 								</div>
 								<div class="zhankai">
@@ -526,8 +545,10 @@
 								</div>
 							</ul>
 						</div>
+					
 					</div>
 
+					
 					<div class="dixiaoxinxi">
 						<div class="dixiao-biaoti">
 							<div class="dixiao-tubiao"></div>
@@ -695,7 +716,7 @@
 
 				</div>
 				<div class="spage" id="page4" style="position:relative">
-					<div class="wrap-tiaoma">
+					<!--<div class="wrap-tiaoma">
 						<div class="tiaoma-biaoti">
 							<div class="tiaoma-tubiao"></div>
 							<div class="tiaoma-wenzi">条形码</div>
@@ -704,8 +725,45 @@
 							<img id="barcode" width="260px" />
 						</div>
 
-						<!--<div id="2dcode" style="width:250px;margin:0 auto;position:relative;top:40px;"></div>-->
+					
+					</div>-->
+					
+					<div class="gerenxinxi">
+						<div class="gerenxinxi-biaoti">
+							<div class="gerenbiaoti-tubiao"></div>
+							<div class="gerenbiaoti-wenzi">个人信息</div>
+						</div>
+						
+						<div class="gerenxinxi-con">
+							<div class="bigTouxiang">
+								<div class="yicun">	</div>	
+							</div>
+							<ul>
+								<li class="xinxi-list tobig">
+									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span><div class="xiajiantou1"></div></li>
+								<li class="xinxi-list">
+									<span class="xinxi-title">考生号</span><span class="xinxi-con">${studentInfo.ksh}</span></li>
+								<li class="xinxi-list">
+									<span class="xinxi-title">姓名</span><span class="xinxi-con">${studentInfo.xm}</span></li>
+								<div class="zhedie">
+									<li class="xinxi-list">
+										<span class="xinxi-title">录取学院</span><span class="xinxi-con">${studentInfo.xymc}</span></li>
+									<li class="xinxi-list">
+										<span class="xinxi-title">录取专业</span><span class="xinxi-con">${studentInfo.zymc}</span></li>
+									<li class="xinxi-list">
+										<span class="xinxi-title">班级名称</span><span class="xinxi-con">${studentInfo.bjmc}</span></li>
+									<li class="xinxi-list">
+										<span class="xinxi-title">手机号码</span><span class="xinxi-con">${studentInfo.mobile}</span></li>
+								</div>
+								<div class="zhankai">
+									<div class="jiantou-geren"></div>
+								</div>
+							</ul>
+						</div>
+					
 					</div>
+
+					
 
 					<div class="banzhuren">
 						<div class="banzhuren-biaoti">
@@ -791,7 +849,139 @@
 	<script src="plug-in/weixin/yx/js/mui.picker.min.js"></script>
 	<script type="text/javascript" src="plug-in/weixin/yx/js/jquery.qrcode.js"></script>
 	<script src="plug-in/weixin/yx/js/JsBarcode.all.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="plug-in/weixin/yx/js/mui.poppicker.js"></script>
 	<script>
+			
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([
+						
+					{
+						value: '母子',
+						text: '母子'
+					},
+					{
+						value: '母女',
+						text: '母女'
+					}, 
+					{
+						value: '父子',
+						text: '父子'
+					},
+					{
+						value: '父女', 
+						text: '父女'
+					},
+					{
+						value: '其他',
+						text: '其他'
+					}
+					
+					]);
+					var showUserPickerButton = doc.getElementById('jzgx1');
+					
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							showUserPickerButton.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					
+				});
+			})(mui, document);
+		
+			
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([
+						
+					{
+						value: '母子',
+						text: '母子'
+					},
+					{
+						value: '母女',
+						text: '母女'
+					}, 
+					{
+						value: '父子',
+						text: '父子'
+					},
+					{
+						value: '父女', 
+						text: '父女'
+					},
+					{
+						value: '其他',
+						text: '其他'
+					}
+					
+					]);
+					var showUserPickerButton = doc.getElementById('jzgx2');
+					
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							showUserPickerButton.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					
+				});
+			})(mui, document);
+		
+		
+		
+		(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([
+						
+					{
+						value: '母子',
+						text: '母子'
+					},
+					{
+						value: '母女',
+						text: '母女'
+					}, 
+					{
+						value: '父子',
+						text: '父子'
+					},
+					{
+						value: '父女', 
+						text: '父女'
+					},
+					{
+						value: '其他',
+						text: '其他'
+					}
+					
+					]);
+					var showUserPickerButton = doc.getElementById('jzgx3');
+					
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							showUserPickerButton.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					
+				});
+			})(mui, document);
+		
+		
 		(function($) {
 			$.init();
 			var result = $('#SelDate')[0];
@@ -833,7 +1023,7 @@
 					});
 				}, false);
 			});
-		})(mui);
+ 		})(mui);
 
 		$(document).ready(function() {
 			//返回主页
