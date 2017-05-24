@@ -37,7 +37,7 @@
 	<body>
 		<div class="wrap">
 			
-			<div class="wrap-tiaoma" style="margin-top:0px">
+			<!--<div class="wrap-tiaoma" style="margin-top:0px">
 					<div class="tiaoma-biaoti">
 						<div class="tiaoma-tubiao"></div>
 						<div class="tiaoma-wenzi">条形码</div>
@@ -46,11 +46,11 @@
 						<img id="barcode" width="260px" />
 					</div>
 
-					<!--<div id="2dcode" style="width:250px;margin:0 auto;position:relative;top:40px;"></div>-->
-			</div>
+					
+			</div>-->
 
 
-			<div class="xinxibiaoti" style="margin-top:0px;margin-top:15px;border:1px solid #eee;">
+			<div class="xinxibiaoti" style="margin-top:0px;margin-top:0px;border:1px solid #eee;">
 				<div class="xinxi-tubiao" ></div>
 				<div class="xinxi-wenzi">我的信息</div>
 			</div>

@@ -6,6 +6,7 @@
 input{
 	margin-bottom: 0px;
 }
+
 .wrap {
 	width: 100%;
 }
@@ -468,6 +469,7 @@ li {
 	z-index:-222;
 	display:none;
 	-webkit-box-shadow:0px -1px 6px 1px #eee inset;
+	overflow: hidden;
 	
 }
 .yicun{
@@ -476,12 +478,41 @@ li {
 	background-image: url(../images/yicun.png);
 	background-size: 100% 100%;
 	border-radius:10px;
-	-webkit-box-shadow:0px 0px 4px 1px #eee;
+	-webkit-box-shadow:0px 0px 4px 1px #ccc;
 	margin:0 auto;
 	margin-top:10px;
+	z-index:111;
+	position: relative;
+	
 }
-
-
+.upyicun{
+	width:100%;
+	height:30px;
+	background-color:rgba(150,150,150,0.1);
+	-webkit-box-shadow: 0px 1px 3px 2px #ccc;
+	position: relative;
+	top: 0px;
+	-webkit-filter: blur(10px); 
+	
+}
+.upicon{
+	height:20px;
+	width:20px;
+	-webkit-box-shadow: 0px 0px 2px 1px #bbb;
+	background-image:url(../images/close.png);
+	background-size:100% 100%;
+	position: absolute;
+	top:60px;
+	right:-20px;
+	z-index:555;
+	
+	border-radius:10px;
+	background-size:100% 100%;	
+	color:#fff;
+	text-align: center;
+	line-height: 20px;
+	
+}
 .gerenxinxi-biaoti{
 	width: 100%;
 	height: 50px;
@@ -517,13 +548,14 @@ li {
 	width:35px;
 	height:35px;
 	position:relative;
-	left:-17px;
+	left:-15px;
 }
 .geren-touxiang img{
-	width:35px;
-	height:35px;
-	border-radius:17px;
-	margin-top:5px;
+	width:28px;
+	height:38px;
+	border-radius:3px;
+	margin-top:3px;
+	-webkit-box-shadow: 1px 1px 2px 1px #ccc;
 }
 
 

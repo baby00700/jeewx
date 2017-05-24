@@ -99,8 +99,7 @@
 					<p></p>
 				</div>
 				<div class="conbut" id="querenbut-main" style="width:100%;text-align: center;line-height: 47px;display:none">确定</div>
-    <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid
-    #ccc">取消</div>
+    <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid #ccc">取消</div>
     <div class="conbut" id="main-querenbut" style="display:none;">确定</div>
 			</div>
 		</div>

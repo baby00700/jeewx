@@ -440,11 +440,13 @@
 						
 						<div class="gerenxinxi-con">
 							<div class="bigTouxiang">
+								<div class="upicon" ></div>
 								<div class="yicun">	</div>	
+								<div class="upyicun"></div>
 							</div>
 							<ul>
 								<li class="xinxi-list tobig">
-									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/head.png"/></div></span><div class="xiajiantou1"></div></li>
+									<span class="xinxi-title">头像</span><span class="xinxi-con1"><div class="geren-touxiang"><img src="plug-in/weixin/yx/images/yicun.png"/></div></span><div class="xiajiantou1"></div></li>
 								<li class="xinxi-list">
 									<span class="xinxi-title">考生号</span><span class="xinxi-con">${studentInfo.ksh}</span></li>
 								<li class="xinxi-list">
@@ -476,7 +478,7 @@
 						<div id="sushe-qinshi" class="xuan-sushe">
 							<div class="sushe-title">寝室号</div>
 							<div class="select-sushe" id="select-qinshi">
-								<select name="qinshihao" class="select-sushe-class" id="qinshi00" >
+								<select name="qinshihao" class="select-sushe-class" id="qinshi00" style="padding-bottom:5px;" >
 									<!--<option value="none">请选择</option>-->
 								</select>
 							</div>
@@ -486,7 +488,7 @@
 						<div id="chuangwei" class="xuan-sushe">
 							<div class="sushe-title">床位号</div>
 							<div class="select-sushe" id="select-chuangwei">
-								<select name="chuangweihao" class="select-sushe-class" id="chuangwei00">
+								<select name="chuangweihao" class="select-sushe-class" id="chuangwei00" style="padding-bottom:5px;">
 									<option value="none">请选择</option>
 								</select>
 							</div>
@@ -521,7 +523,9 @@
 						
 						<div class="gerenxinxi-con">
 							<div class="bigTouxiang">
+								<div class="upicon" ></div>
 								<div class="yicun">	</div>	
+								<div class="upyicun"></div>
 							</div>
 							<ul>
 								<li class="xinxi-list tobig">
@@ -736,7 +740,9 @@
 						
 						<div class="gerenxinxi-con">
 							<div class="bigTouxiang">
+								<div class="upicon" ></div>
 								<div class="yicun">	</div>	
+								<div class="upyicun"></div>
 							</div>
 							<ul>
 								<li class="xinxi-list tobig">
