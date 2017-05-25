@@ -1735,3 +1735,38 @@ li {
 	margin-right:10px;
 	font-size:11pt;
 }
+/*辅导员管理页面*/
+
+.fdyinfo{
+	width:100%;
+	height:auto;
+}
+.fdytitle{
+	height:40px;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+}
+
+.fdyright{
+	float: right;
+}
+.fdyowner{
+	height:40px;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+	text-align: center;
+}
+
+.fdyowner-con{
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+	text-align: center;
+}
+
+.fdyowner-con li{
+	text-align: center;
+	
+}

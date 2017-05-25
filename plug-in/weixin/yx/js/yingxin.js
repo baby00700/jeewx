@@ -1450,7 +1450,8 @@ $(document).ready(function() {
 		
 	})
 	
-	
+	//设置头像
+	$(".geren-touxiang img").attr('src',"plug-in/weixin/yx/images/yicun.png");
 	
 	
 });
