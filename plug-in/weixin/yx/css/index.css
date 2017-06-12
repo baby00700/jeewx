@@ -181,7 +181,15 @@ html{ _background:url(about:blank);}
 	 position: absolute;
 	 left:5em;
  }
+#summary{
+	overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width:8em;/*不允许出现半汉字截断*/
 
+
+
+}
 
 .xiaoyouxinxi{
 	width:100%;

@@ -1770,3 +1770,16 @@ li {
 	text-align: center;
 	
 }
+
+.fdyloginout{
+	height:30px;
+	background-color:#1296DB;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:10px;
+	
+	border-radius:8px;
+	line-height: 30px;
+	text-align: center;
+	color:#fff;
+}
