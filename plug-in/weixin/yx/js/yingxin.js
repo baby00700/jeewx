@@ -2,8 +2,8 @@
 var isTimeIn;
 
 function isTime() {
-	var beginDate = new Date("2017-02-20");
-	var endDate = new Date("2017-03-20");
+	var beginDate = new Date("2017-05-20");
+	var endDate = new Date("2017-06-20");
 	var date = new Date();
 	var nowStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	var nowDate = new Date(nowStr);
@@ -28,488 +28,1007 @@ $(document).ready(function() {
 	var isn1;
 	//liucheng
 	$.ajax({
-		type: "post",
-		dataType: "json",
-		url: "mobileStudentController.do?getProcess",
-		success: function(data) {
-			var obj = $.parseJSON(data.msg);
-			for(var i = 0; i < obj.length; i++) {
-				console.log("ok");
-				console.log("流程ID：" + obj[i].id + "流程名称：" + obj[i].process_name);
-				var liuchengName = obj[i].process_name;
-				//var liuchengXH=obj[i].process_step;
-				//console.log(liuchengXH);
-				var liuchengTOU = '<li><span class="step">' + (i + 1) + '</span><span class="title">' + liuchengName + '</span></li>';
-				$(".wizard-steps").append(liuchengTOU);
-				if(grlc != "" && grlc != null && grlc != undefined && grlc != "null") {
-					if(obj[i].id == grlc) {
-						console.log("个人流程" + grlc);
-						console.log("I=" + i);
-						liucheng = i + 1;
-						console.log("流程" + liucheng);
-						var oron = obj[i].endbs;
-						console.log(oron);
-						if(oron == "on") {
-							$("#page4").show().siblings().hide();
+			type: "post",
+			dataType: "json",
+			url: "mobileStudentController.do?getProcess",
+			success: function(data) {
+				var obj = $.parseJSON(data.msg);
+				for(var i = 0; i < obj.length; i++) {
+					console.log("ok");
+					console.log("流程ID：" + obj[i].id + "流程名称：" + obj[i].process_name);
+					var liuchengName = obj[i].process_name;
+					//var liuchengXH=obj[i].process_step;
+					//console.log(liuchengXH);
+					var liuchengTOU = '<li><span class="step">' + (i + 1) + '</span><span class="title">' + liuchengName + '</span></li>';
+					$(".wizard-steps").append(liuchengTOU);
+					if(grlc != "" && grlc != null && grlc != undefined && grlc != "null") {
+						if(obj[i].id == grlc) {
+							console.log("个人流程" + grlc);
+							console.log("I=" + i);
+							liucheng = i + 1;
+							console.log("流程" + liucheng);
+							var oron = obj[i].endbs;
+							console.log(oron);
+							if(oron == "on") {
+								$("#page4").show().siblings().hide();
 
+							}
 						}
+					} else {
+
+						liucheng = 0;
+						console.log(liucheng + "//////");
 					}
-				} else {
 
-					liucheng = 0;
-					console.log(liucheng + "//////");
 				}
-
-			}
-			benciliucheng = liucheng=1; //流程控制
-			//默认状态	默认头部本步骤高亮 默认所获取的状态之前的页面不可见 默认显示本次流程状态页面
-			//将按钮样式变化以及切换div封装为函数//初始状态下按钮
-			function buttonclick(buttn) {
-				buttn = benciliucheng - 1;
-				if(buttn <= 0) {
-					buttn = 0;
-				} else {
-					$(".spage").eq(buttn).find(".subbut").removeClass("subbut").addClass("subbut-visited").hide().next(".sub-non").show();
-					$(".spage").eq(benciliucheng).show().siblings().hide();
-					$(".spage").eq(buttn).prevAll().find(".subbut").removeClass("subbut").addClass("subbut-visited").hide().next(".sub-non").show();
+				benciliucheng = liucheng ; //流程控制
+				//默认状态	默认头部本步骤高亮 默认所获取的状态之前的页面不可见 默认显示本次流程状态页面
+				//将按钮样式变化以及切换div封装为函数//初始状态下按钮
+				function buttonclick(buttn) {
+					buttn = benciliucheng - 1;
+					if(buttn <= 0) {
+						buttn = 0;
+					} else {
+						$(".spage").eq(buttn).find(".subbut").removeClass("subbut").addClass("subbut-visited").hide().next(".sub-non").show();
+						$(".spage").eq(benciliucheng).show().siblings().hide();
+						$(".spage").eq(buttn).prevAll().find(".subbut").removeClass("subbut").addClass("subbut-visited").hide().next(".sub-non").show();
+					}
 				}
-			}
-			buttonclick(buttn); //默认执行初始按钮状态；
+				buttonclick(buttn); //默认执行初始按钮状态；
 
-			$(".spage").eq(liucheng).show().siblings().hide();
+				$(".spage").eq(liucheng).show().siblings().hide();
 
-			//定义顶部高亮封装为函数
-			function gaoliangtop(n) {
-				$('.wizard-steps li').eq(n).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
-				$(".wizard-steps  li").eq(n).children().last().css("color", "#1296DB").parent().siblings().children(".title").css("color", "#333");
-				$(".wizard-steps li").eq(n).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
-			}
-			//顶部左右滚动点击高亮代码 开始 默认状态 morenliucheng=liucheng
-			var morenliucheng = liucheng; //
-			//console.log(n);
-			$('.wizard-steps li').eq(morenliucheng).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
-			$(".wizard-steps li").eq(morenliucheng).children().last().css("color", "#1296DB").parent().siblings().children(".title").css("color", "#333");
-			$(".wizard-steps li").eq(morenliucheng).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
-
-			$(".wizard-steps li").click(function() {
-				n = $(this).index();
-				console.log(n + "n");
-				console.log(liucheng + "liucheng");
-				console.log(benciliucheng + "benciliucheng");
-				if(n <= benciliucheng && n >= liucheng) {
-					$('.wizard-steps  li').eq(n).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
+				//定义顶部高亮封装为函数
+				function gaoliangtop(n) {
+					$('.wizard-steps li').eq(n).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
 					$(".wizard-steps  li").eq(n).children().last().css("color", "#1296DB").parent().siblings().children(".title").css("color", "#333");
-					$(".wizard-steps  li").eq(n).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
-					$(".spage").eq(n).show().siblings().hide();
+					$(".wizard-steps li").eq(n).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
 				}
+				//顶部左右滚动点击高亮代码 开始 默认状态 morenliucheng=liucheng
+				var morenliucheng = liucheng; //
+				//console.log(n);
+				$('.wizard-steps li').eq(morenliucheng).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
+				$(".wizard-steps li").eq(morenliucheng).children().last().css("color", "#1296DB").parent().siblings().children(".title").css("color", "#333");
+				$(".wizard-steps li").eq(morenliucheng).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
 
-			});
+				$(".wizard-steps li").click(function() {
+					n = $(this).index();
+					console.log(n + "n");
+					console.log(liucheng + "liucheng");
+					console.log(benciliucheng + "benciliucheng");
+					if(n <= benciliucheng && n >= liucheng) {
+						$('.wizard-steps  li').eq(n).children().first().css("border-color", "#1296DB").css("background", "#1296DB").css("color", "#fff").parent().siblings().children(".step").css("background-color", "#CED1D6").css("border-color", "#CED1D6").css("color", "black");
+						$(".wizard-steps  li").eq(n).children().last().css("color", "#1296DB").parent().siblings().children(".title").css("color", "#333");
+						$(".wizard-steps  li").eq(n).removeClass().addClass('wizard-steps li ' + "gaoliang").siblings().removeClass('wizard-steps li ' + "gaoliang");
+						$(".spage").eq(n).show().siblings().hide();
+					}
 
-			//点击底部按钮 提交数据 跳转下一页 并禁用事件
-			//page1
+				});
 
-			$("#gerenxinxibut").on("click", function() {
+				//点击底部按钮 提交数据 跳转下一页 并禁用事件
+				//page1
 
-				//判断必填项是否为空
-				//定义变量
-				var stmobile1 = $("#inputout p").html();
-				console.log(stmobile1);
-				if(stmobile1 == "null" || stmobile1 == "" || stmobile1 == undefined || stmobile1 == null) {
-					var mobile = $("#stMobile").val(); //手机号
-					$("#inputout p").html("请输入手机号");
-				} else {
-					var mobile = sjh; //手机号
-				}
+				$("#gerenxinxibut").on("click", function() {
 
-				var stmail = $("#inputout2 input").val();
-				console.log(stmail);
-				if(stmail == "null" || stmail == "" || stmail == undefined || stmail == null) {
-					var youxiang = $("#stmail").val(); 
-					
-					$("#stmail").attr('placeholder', ' 请重新输入');
-				} else {
-					var youxiang = stmail; 
-				}
+						//判断必填项是否为空
+						//定义变量
+						var stmobile1 = $("#inputout p").html();
+						console.log(stmobile1);
+						if(stmobile1 == "null" || stmobile1 == "" || stmobile1 == undefined || stmobile1 == null) {
+							var mobile = $("#stMobile").val(); //手机号
+							$("#inputout p").html("请输入手机号");
+						} else {
+							var mobile = sjh; //手机号
+						}
 
-				console.log(mobile);
-				console.log(youxiang + "邮箱0***");
-				var syd = $("#stShengyuan").val(); //生源地
-				var jtdz = $("#jiatingzhuzhi").val(); //家庭住址
+						var stmail = $("#inputout2 input").val();
+						console.log(stmail);
+						if(stmail == "null" || stmail == "" || stmail == undefined || stmail == null) {
+							var youxiang = $("#stmail").val();
 
-				var jtmc1 = $("#jzxm1").val(); //家长姓名123
-				var jtmc2 = $("#jzxm2").val();
-				var jtmc3 = $("#jzxm3").val();
-				var jtdh1 = $("#jzdh1").val(); //电话123
-				var jtdh2 = $("#jzdh2").val();
-				var jtdh3 = $("#jzdh3").val();
-				var jtgx1 = $("#jzgx1").val(); //关系123
-				var jtgx2 = $("#jzgx2").val();
-				var jtgx3 = $("#jzgx3").val();
-				var xssg = $("#stshengao").val(); //身高
-				var xstz = $("#sttizhong").val(); //体重
-				var fzcc = $("#fuzhuangchima").val(); //服装尺码
-				var xzcc = $("#xiezichima").val(); //鞋子尺码
+							$("#stmail").attr('placeholder', ' 请重新输入');
+						} else {
+							var youxiang = stmail;
+						}
 
-				var grinfo = [{
-					"mobile": mobile,
-					"syd": syd,
-					"jtdz": jtdz,
-					"mail": stmail
-				}, ];
+						console.log(mobile);
+						console.log(youxiang + "邮箱0***");
+						var syd = $("#stShengyuan").val(); //生源地
+						var jtdz = $("#jiatingzhuzhi").val(); //家庭住址
 
-				var jtinfo = [{
-					"jtmc1": jtmc1,
-					"jtmc2": jtmc2,
-					"jtmc3": jtmc3,
-					"jtdh1": jtdh1,
-					"jtdh2": jtdh2,
-					"jtdh3": jtdh3,
-					"jtgx1": jtgx1,
-					"jtgx2": jtgx2,
-					"jtgx3": jtgx3,
-					"xssg": xssg,
-					"xstz": xstz,
-					"fzcc": fzcc,
-					"xzcc": xzcc
-				}];
-				console.log(JSON.stringify(grinfo));
-				console.log(JSON.stringify(jtinfo))
-				var otjt1;
-				if(jtmc1 != "" && jtdh1 != "" && jtgx1 != "") {
-					otjt1 = true;
-				} else {
-					otjt1 = false;
-					//	alert("nono");
-				}
+						var jtmc1 = $("#jzxm1").val(); //家长姓名123
+						var jtmc2 = $("#jzxm2").val();
+						var jtmc3 = $("#jzxm3").val();
+						var jtdh1 = $("#jzdh1").val(); //电话123
+						var jtdh2 = $("#jzdh2").val();
+						var jtdh3 = $("#jzdh3").val();
+						var jtgx1 = $("#jzgx1").val(); //关系123
+						var jtgx2 = $("#jzgx2").val();
+						var jtgx3 = $("#jzgx3").val();
+						var xssg = $("#stshengao").val(); //身高
+						var xstz = $("#sttizhong").val(); //体重
+						var fzcc = $("#fuzhuangchima").val(); //服装尺码
+						var xzcc = $("#xiezichima").val(); //鞋子尺码
 
-				var otjt2;
-				if(jtmc2 != "" && jtdh2 != "" && jtgx2 != "") {
-					otjt2 = true;
-				} else {
-					otjt2 = false;
-					//alert("nono");
-				}
+						var grinfo = [{
+							"mobile": mobile,
+							"syd": syd,
+							"jtdz": jtdz,
+							"mail": stmail
+						}, ];
 
-				var otjt3;
-				if(jtmc3 != "" && jtdh3 != "" && jtgx3 != "") {
-					otjt3 = true;
-				} else {
-					otjt3 = false;
-					//alert("nono");
-				}
-				console.log(mobile);
+						var jtinfo = [{
+							"jtmc1": jtmc1,
+							"jtmc2": jtmc2,
+							"jtmc3": jtmc3,
+							"jtdh1": jtdh1,
+							"jtdh2": jtdh2,
+							"jtdh3": jtdh3,
+							"jtgx1": jtgx1,
+							"jtgx2": jtgx2,
+							"jtgx3": jtgx3,
+							"xssg": xssg,
+							"xstz": xstz,
+							"fzcc": fzcc,
+							"xzcc": xzcc
+						}];
+						console.log(JSON.stringify(grinfo));
+						console.log(JSON.stringify(jtinfo))
+						var otjt1;
+						if(jtmc1 != "" && jtdh1 != "" && jtgx1 != "") {
+							otjt1 = true;
+						} else {
+							otjt1 = false;
+							//	alert("nono");
+						}
 
-				if(mobile == "" || stmail == "" || syd == "" || jtdz == "" || xssg == "" || xstz == "" || fzcc == "none" || xzcc == "none") {
-					alert('带"*"的为必填项');
-				} else {
+						var otjt2;
+						if(jtmc2 != "" && jtdh2 != "" && jtgx2 != "") {
+							otjt2 = true;
+						} else {
+							otjt2 = false;
+							//alert("nono");
+						}
 
-					if(otjt1 == true || otjt2 == true || otjt2 == true) {
+						var otjt3;
+						if(jtmc3 != "" && jtdh3 != "" && jtgx3 != "") {
+							otjt3 = true;
+						} else {
+							otjt3 = false;
+							//alert("nono");
+						}
+						console.log(mobile);
 
-						//判断是否缴费
-						if(sfjf == "Y") {
-							$(".jiazai").stop().fadeIn(1000);
-							//mobileStudentController.do?generatingClass//生成班级
-							$.ajax({
-								type: "post",
-								dataType: "json",
-								url: "mobileStudentController.do?generatingClass",
-								success: function(data) {
-									var su = data.success;
-									//var su=false;
-									var obj = data.msg;
-									if(su == true) {
-										//分班成功提示（hide）
-										console.log(data.success);
-										console.log(obj);
-										console.log(data);
-										//报名方法AJAx
-										$.ajax({
+						if(mobile == "" || stmail == "" || syd == "" || jtdz == "" || xssg == "" || xstz == "" || fzcc == "none" || xzcc == "none") {
+							alert('带"*"的为必填项');
+						} else {
+
+							if(otjt1 == true || otjt2 == true || otjt2 == true) {
+
+								//判断是否缴费
+								if(sfjf == "Y") {
+									$(".jiazai").stop().fadeIn(1000);
+
+									
+									//报名并保存信息
+                                    //报名方法AJAx
+                                    $.ajax({
+                                        type: "post",
+                                        dataType: "json",
+                                        url: "mobileStudentController.do?doSignUp",
+                                        data: {
+                                            grinfo: JSON.stringify(grinfo),
+                                            jtinfo: JSON.stringify(jtinfo)
+                                        },
+                                        async: true,
+                                        success: function(data) {
+                                            var bmsu = data.success;
+                                            var bmobj = data.msg;
+                                            if(bmsu == true) {
+                                                //判断是否单招
+                                                if(sfdz="Y"){//是单招生，则要判断是否在时间内
+                                                    //判断单招生是否在范围内 开始
+                                                    isTime();
+                                                    if(isTimeIn==true){
+                                                        //报名成功并且在范围内生成班级开始 按照正常流程，可以进入下一页
+                                                        $.ajax({
+                                                            type: "post",
+                                                            dataType: "json",
+                                                            url: "mobileStudentController.do?generatingClass",
+                                                            success: function(data) {
+                                                                var su = data.success;
+                                                                //var su=false;
+                                                                var obj = data.msg;
+                                                                if(su == true) {
+                                                                    //分班成功提示（hide）
+                                                                    console.log(data.success);
+                                                                    console.log(obj);
+                                                                    //班级生成成功后预先获取宿舍信息并跳转下一页
+
+                                                                    //跳转和样式 开始
+                                                                    $("#page1").stop().fadeOut();
+                                                                    $("#page2").stop().fadeIn();
+                                                                    $(".jiazai").stop().fadeOut(1000);
+                                                                    n = 1;
+                                                                    isn1 = n;
+                                                                    gaoliangtop(n);
+                                                                    $(this).removeClass("subbut").addClass("subbut-visited");
+                                                                    benciliucheng++;
+                                                                    buttonclick(buttn);
+                                                                    $("#gerenxinxibut").unbind();
+                                                                    //跳转和样式 结束
+
+                                                                    //获取宿舍信息开始
+                                                                    //获取宿舍信息
+                                                                    //获取宿舍信息
+                                                                    var dropid = "";
+                                                                    var susheOBJmc;
+                                                                    var susheOBJid;
+                                                                    $("#qinshi00").css("width", "0");
+                                                                    $("#qinshijiazai").show();
+                                                                    $.ajax({
+                                                                        type: "post",
+                                                                        dataType: "json",
+                                                                        url: "mobileStudentController.do?getDromList",
+                                                                        data: {
+
+                                                                            pid: dropid
+                                                                        },
+                                                                        success: function(data) {
+                                                                            //	alert("jiazai");
+                                                                            //console.log(data);
+                                                                            var end = data.obj;
+                                                                            //console.log(data.msg);
+                                                                            var obj = $.parseJSON(data.msg);
+
+                                                                            if(obj.length != 0) { //判断是否有床位
+                                                                                if(end != null && end == "end") { //判断是否为END
+                                                                                    //	alert(end);
+                                                                                    for(var i = 0; i < obj.length; i++) {
+                                                                                        alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                    }
+                                                                                } else {
+                                                                                    for(var i = 0; i < obj.length; i++) {
+                                                                                        //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+                                                                                        susheOBJmc = obj[i].cname;
+                                                                                        susheOBJid = obj[i].BS;
+                                                                                        if(i <= 0) {
+                                                                                            var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                            $("#qinshi00").append(susheSEL);
+                                                                                        }
+
+                                                                                        var selsize = $("#qinshi00 option").size();
+                                                                                        if(selsize >= 0) {
+                                                                                            console.log(selsize);
+                                                                                            $("#qinshijiazai").hide();
+                                                                                            $("#qinshi00").css("width", "auto");
+                                                                                        }
+
+                                                                                    }
+                                                                                    var drr = $("#qinshi00 option:selected").val();
+                                                                                    $("#chuangwei00").css("width", "0");
+                                                                                    $("#chuangweijiazai").show();
+                                                                                    $("#chuangwei00 option").remove();
+                                                                                    $("#chuangwei00").append('<option value="none">请选择</option>');
+                                                                                    var val00 = drr;
+                                                                                    if(val00 == "none") {
+                                                                                        $("#chuangwei00").css("width", "auto");
+                                                                                        $("#chuangweijiazai").hide();
+                                                                                    }
+                                                                                    dropid = val00;
+                                                                                    $.ajax({
+                                                                                        type: "post",
+                                                                                        dataType: "json",
+                                                                                        url: "mobileStudentController.do?getDromList",
+                                                                                        data: {
+                                                                                            sfzh: sfzh,
+                                                                                            pid: dropid
+                                                                                        },
+                                                                                        success: function(data) {
+                                                                                            var end = data.obj;
+
+                                                                                            var obj = $.parseJSON(data.msg);
+                                                                                            if(end != null && end == "end") {
+                                                                                                //alert(end);
+                                                                                                for(var i = 0; i < obj.length; i++) {
+                                                                                                    //alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                                    susheOBJmc = obj[i].cname;
+                                                                                                    susheOBJid = obj[i].cc;
+                                                                                                    var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                                    $("#chuangwei00").append(susheSEL);
+
+                                                                                                    var selsize = $("#chuangwei00 option").size();
+                                                                                                    if(selsize >= 2) {
+                                                                                                        console.log(selsize);
+                                                                                                        $("#chuangweijiazai").hide();
+                                                                                                        $("#chuangwei00").css("width", "auto");
+                                                                                                    }
+                                                                                                    susheOBJid = val00;
+                                                                                                }
+                                                                                            } else {
+                                                                                                for(var i = 0; i < obj.length; i++) {
+                                                                                                    //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+
+                                                                                                }
+
+                                                                                            }
+                                                                                        },
+                                                                                        error: function(msg) {
+                                                                                            //alert("error:" + msg);
+                                                                                            alert("刷新频率过快！");
+                                                                                        }
+                                                                                    });
+
+                                                                                }
+
+                                                                            } else {
+                                                                                //alert("无可用床位！");
+                                                                                $("#qinshijiazai").hide();
+                                                                                $("#qinshi00").css("width", "auto");
+                                                                                $("#qinshi00 option").remove();
+                                                                                $("#qinshi00").append('<option value="none">无</option>');
+                                                                                $("#chuangwei00 option").remove();
+                                                                                $("#chuangwei00").append('<option value="none">无</option>');
+                                                                            }
+
+                                                                        },
+                                                                        error: function(msg) {
+                                                                            //alert("error:" + msg);
+                                                                            alert("刷新频率过快！");
+                                                                        }
+                                                                    });
+                                                                    //获取宿舍信息end
+                                                                    //获取宿舍信息end
+                                                                    //获取宿舍信息结束
+
+
+                                                                } else {
+                                                                    $(".jiazai").stop().fadeOut(1000);
+                                                                    console.log(obj);
+                                                                    //分班遮罩层提示分班失败并无法进入下一步
+                                                                    $('#fbbm-queren').stop().fadeIn();
+                                                                    $("#wenzi-con p").text(obj);
+                                                                    $("#baoming-fbbut").show();
+                                                                    //$("#wenzi-con p").text("分班失败！请联系xxx后继续进行报道流程");
+                                                                    $("#baoming-fbbut").click(function() {
+                                                                        $("#fbbm-queren").stop().fadeOut();
+                                                                    });
+
+                                                                }
+
+                                                            },
+                                                            error: function(msg) {
+                                                                console.log("error:" + msg);
+                                                                $('#fbbm-queren').stop().fadeIn();
+                                                                //$("#wenzi-con").text(obj);
+                                                                $("#baoming-fbbut").show();
+                                                                console.log("nono222");
+                                                                $("#wenzi-con p").text("连接超时！请稍后重试！");
+                                                                $("#baoming-fbbut").click(function() {
+                                                                    $("#fbbm-queren").stop().fadeOut();
+                                                                });
+                                                            }
+                                                        });
+                                                        //生成班级结束
+                                                    }else{//单招生不在范围内，不能选宿舍，不能进入下一页
+                                                      //  alert("请在时间范围内("+kssj+"至"+jssj+")进行下一步操作！");
+                                                        alert("请在时间范围内进行下一步操作！");
+                                                    }//判断单招生是否在范围内 结束
+
+                                                }else{//不是单招生，按照正常流程
+                                                    //报名成功并且在范围内生成班级开始 按照正常流程，可以进入下一页
+                                                    $.ajax({
+                                                        type: "post",
+                                                        dataType: "json",
+                                                        url: "mobileStudentController.do?generatingClass",
+                                                        success: function(data) {
+                                                            var su = data.success;
+                                                            //var su=false;
+                                                            var obj = data.msg;
+                                                            if(su == true) {
+                                                                //分班成功提示（hide）
+                                                                console.log(data.success);
+                                                                console.log(obj);
+                                                                //班级生成成功后预先获取宿舍信息并跳转下一页
+
+                                                                //跳转和样式 开始
+                                                                $("#page1").stop().fadeOut();
+                                                                $("#page2").stop().fadeIn();
+                                                                $(".jiazai").stop().fadeOut(1000);
+                                                                n = 1;
+                                                                isn1 = n;
+                                                                gaoliangtop(n);
+                                                                $(this).removeClass("subbut").addClass("subbut-visited");
+                                                                benciliucheng++;
+                                                                buttonclick(buttn);
+                                                                $("#gerenxinxibut").unbind();
+                                                                //跳转和样式 结束
+
+                                                                //获取宿舍信息开始
+                                                                //获取宿舍信息
+                                                                //获取宿舍信息
+                                                                var dropid = "";
+                                                                var susheOBJmc;
+                                                                var susheOBJid;
+                                                                $("#qinshi00").css("width", "0");
+                                                                $("#qinshijiazai").show();
+                                                                $.ajax({
+                                                                    type: "post",
+                                                                    dataType: "json",
+                                                                    url: "mobileStudentController.do?getDromList",
+                                                                    data: {
+
+                                                                        pid: dropid
+                                                                    },
+                                                                    success: function(data) {
+                                                                        //	alert("jiazai");
+                                                                        //console.log(data);
+                                                                        var end = data.obj;
+                                                                        //console.log(data.msg);
+                                                                        var obj = $.parseJSON(data.msg);
+
+                                                                        if(obj.length != 0) { //判断是否有床位
+                                                                            if(end != null && end == "end") { //判断是否为END
+                                                                                //	alert(end);
+                                                                                for(var i = 0; i < obj.length; i++) {
+                                                                                    alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                }
+                                                                            } else {
+                                                                                for(var i = 0; i < obj.length; i++) {
+                                                                                    //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+                                                                                    susheOBJmc = obj[i].cname;
+                                                                                    susheOBJid = obj[i].BS;
+                                                                                    if(i <= 0) {
+                                                                                        var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                        $("#qinshi00").append(susheSEL);
+                                                                                    }
+
+                                                                                    var selsize = $("#qinshi00 option").size();
+                                                                                    if(selsize >= 0) {
+                                                                                        console.log(selsize);
+                                                                                        $("#qinshijiazai").hide();
+                                                                                        $("#qinshi00").css("width", "auto");
+                                                                                    }
+
+                                                                                }
+                                                                                var drr = $("#qinshi00 option:selected").val();
+                                                                                $("#chuangwei00").css("width", "0");
+                                                                                $("#chuangweijiazai").show();
+                                                                                $("#chuangwei00 option").remove();
+                                                                                $("#chuangwei00").append('<option value="none">请选择</option>');
+                                                                                var val00 = drr;
+                                                                                if(val00 == "none") {
+                                                                                    $("#chuangwei00").css("width", "auto");
+                                                                                    $("#chuangweijiazai").hide();
+                                                                                }
+                                                                                dropid = val00;
+                                                                                $.ajax({
+                                                                                    type: "post",
+                                                                                    dataType: "json",
+                                                                                    url: "mobileStudentController.do?getDromList",
+                                                                                    data: {
+                                                                                        sfzh: sfzh,
+                                                                                        pid: dropid
+                                                                                    },
+                                                                                    success: function(data) {
+                                                                                        var end = data.obj;
+
+                                                                                        var obj = $.parseJSON(data.msg);
+                                                                                        if(end != null && end == "end") {
+                                                                                            //alert(end);
+                                                                                            for(var i = 0; i < obj.length; i++) {
+                                                                                                //alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                                susheOBJmc = obj[i].cname;
+                                                                                                susheOBJid = obj[i].cc;
+                                                                                                var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                                $("#chuangwei00").append(susheSEL);
+
+                                                                                                var selsize = $("#chuangwei00 option").size();
+                                                                                                if(selsize >= 2) {
+                                                                                                    console.log(selsize);
+                                                                                                    $("#chuangweijiazai").hide();
+                                                                                                    $("#chuangwei00").css("width", "auto");
+                                                                                                }
+                                                                                                susheOBJid = val00;
+                                                                                            }
+                                                                                        } else {
+                                                                                            for(var i = 0; i < obj.length; i++) {
+                                                                                                //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+
+                                                                                            }
+
+                                                                                        }
+                                                                                    },
+                                                                                    error: function(msg) {
+                                                                                        //alert("error:" + msg);
+                                                                                        alert("刷新频率过快！");
+                                                                                    }
+                                                                                });
+
+                                                                            }
+
+                                                                        } else {
+                                                                            //alert("无可用床位！");
+                                                                            $("#qinshijiazai").hide();
+                                                                            $("#qinshi00").css("width", "auto");
+                                                                            $("#qinshi00 option").remove();
+                                                                            $("#qinshi00").append('<option value="none">无</option>');
+                                                                            $("#chuangwei00 option").remove();
+                                                                            $("#chuangwei00").append('<option value="none">无</option>');
+                                                                        }
+
+                                                                    },
+                                                                    error: function(msg) {
+                                                                        //alert("error:" + msg);
+                                                                        alert("刷新频率过快！");
+                                                                    }
+                                                                });
+                                                                //获取宿舍信息end
+                                                                //获取宿舍信息end
+                                                                //获取宿舍信息结束
+
+
+                                                            } else {
+                                                                $(".jiazai").stop().fadeOut(1000);
+                                                                console.log(obj);
+                                                                //分班遮罩层提示分班失败并无法进入下一步
+                                                                $('#fbbm-queren').stop().fadeIn();
+                                                                $("#wenzi-con p").text(obj);
+                                                                $("#baoming-fbbut").show();
+                                                                //$("#wenzi-con p").text("分班失败！请联系xxx后继续进行报道流程");
+                                                                $("#baoming-fbbut").click(function() {
+                                                                    $("#fbbm-queren").stop().fadeOut();
+                                                                });
+
+                                                            }
+
+                                                        },
+                                                        error: function(msg) {
+                                                            console.log("error:" + msg);
+                                                            $('#fbbm-queren').stop().fadeIn();
+                                                            //$("#wenzi-con").text(obj);
+                                                            $("#baoming-fbbut").show();
+                                                            console.log("nono222");
+                                                            $("#wenzi-con p").text("连接超时！请稍后重试！");
+                                                            $("#baoming-fbbut").click(function() {
+                                                                $("#fbbm-queren").stop().fadeOut();
+                                                            });
+                                                        }
+                                                    });
+                                                    //生成班级结束
+                                                }
+
+                                            }
+                                        }, /*success END*/
+                                        error: function() {
+                                            $(".jiazai").stop().fadeOut(1000);
+                                            $('#fbbm-queren').stop().fadeIn();
+                                            //$("#wenzi-con").text(obj);
+                                            $("#baoming-fbbut").show();
+                                            console.log("nono11");
+                                            $("#wenzi-con p").text("连接超时！请稍后重试！");
+                                            $("#baoming-fbbut").click(function() {
+                                                $("#fbbm-queren").stop().fadeOut();
+                                            });
+                                        }
+                                    });
+                                    //b报名方法end
+									
+									
+									/*$.ajax({
 											type: "post",
 											dataType: "json",
-											url: "mobileStudentController.do?doSignUp",
-											data: {
-												grinfo: JSON.stringify(grinfo),
-												jtinfo: JSON.stringify(jtinfo)
-											},
-											async: true,
+											url: "mobileStudentController.do?generatingClass",
 											success: function(data) {
-												var bmsu = data.success;
-												var bmobj = data.msg;
-												if(bmsu == true) {
+												var su = data.success;
+												//var su=false;
+												var obj = data.msg;
+												if(su == true) {
+													//分班成功提示（hide）
 													console.log(data.success);
-													console.log(bmobj);
-													$("#page1").stop().fadeOut();
-													$("#page2").stop().fadeIn();
-													$(".jiazai").stop().fadeOut(1000);
-													n = 1;
-													isn1 = n;
-													gaoliangtop(n);
-													$(this).removeClass("subbut").addClass("subbut-visited");
-													benciliucheng++;
-													buttonclick(buttn);
-													$("#gerenxinxibut").unbind();
-													//判断是否为单招生，若是就判断是否为时间段内
-													isTime();
+													console.log(obj);
+													console.log(data);
+													//报名方法AJAx
+													$.ajax({
+															type: "post",
+															dataType: "json",
+															url: "mobileStudentController.do?doSignUp",
+															data: {
+																grinfo: JSON.stringify(grinfo),
+																jtinfo: JSON.stringify(jtinfo)
+															},
+															async: true,
+															success: function(data) {
+																var bmsu = data.success;
+																var bmobj = data.msg;
+																if(bmsu == true) {
+																	console.log(data.success);
+																	console.log(bmobj);
+																	$("#page1").stop().fadeOut();
+																	$("#page2").stop().fadeIn();
+																	$(".jiazai").stop().fadeOut(1000);
+																	n = 1;
+																	isn1 = n;
+																	gaoliangtop(n);
+																	$(this).removeClass("subbut").addClass("subbut-visited");
+																	benciliucheng++;
+																	buttonclick(buttn);
+																	$("#gerenxinxibut").unbind();
 
-													if(sfdz == "Y") {
-														if(isTimeIn == false) { //如果单招学生不在时间内选宿舍
-															$("#qinshi00 option").remove();
-															$("#chuangwei00 option").remove();
+																	//判断是否为单招生，若是就判断是否为时间段内
+																	isTime();
 
-															$("#qinshi00").append('<option value="none">当前暂无可用宿舍</option>');
+																	if(sfdz == "Y") {
+																		if(isTimeIn == false) { //如果单招学生不在时间内选宿舍
+																			$("#qinshi00 option").remove();
+																			$("#chuangwei00 option").remove();
 
-															$("#chuangwei00").append('<option value="none">当前暂无可用宿舍</option>');
-														} else { //单招学生在时间内选宿舍
-															/*
-															 *
-															 * 预先获取宿舍信息
-															 * 开始
-															 * */
-			
-																//获取宿舍信息
-																var dropid = "";
-																var susheOBJmc;
-																var susheOBJid;
-																$("#qinshi00").css("width", "0");
-																$("#qinshijiazai").show();
-																$.ajax({
-																	type: "post",
-																	dataType: "json",
-																	url: "mobileStudentController.do?getDromList",
-																	data: {
-											
-																		pid: dropid
-																	},
-																	success: function(data) {
-																		//	alert("jiazai");
-																		//console.log(data);
-																		var end = data.obj;
-																		//console.log(data.msg);
-																		var obj = $.parseJSON(data.msg);
-											
-																		if(obj.length != 0) { //判断是否有床位
-																			if(end != null && end == "end") { //判断是否为END
-																				//	alert(end);
-																				for(var i = 0; i < obj.length; i++) {
-																					alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
-																				}
-																			} else {
-																				for(var i = 0; i < obj.length; i++) {
-																					//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
-																					susheOBJmc = obj[i].cname;
-																					susheOBJid = obj[i].BS;
-																					if(i<=0){
-																						var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
-																						$("#qinshi00").append(susheSEL);
-																					}
-											
-																					var selsize = $("#qinshi00 option").size();
-																					if(selsize >= 0) {
-																						console.log(selsize);
-																						$("#qinshijiazai").hide();
-																						$("#qinshi00").css("width", "auto");
-																					}
-																					
-																					
-																				}
-																				var drr=$("#qinshi00 option:selected").val();
-																				$("#chuangwei00").css("width", "0");
-																				$("#chuangweijiazai").show();
-																				$("#chuangwei00 option").remove();
-																				$("#chuangwei00").append('<option value="none">请选择</option>');
-																				var val00 = drr;
-																				if(val00 == "none") {
-																					$("#chuangwei00").css("width", "auto");
-																					$("#chuangweijiazai").hide();
-																				}
-																				dropid = val00;
+																			$("#qinshi00").append('<option value="none">当前暂无可用宿舍</option>');
+
+																			$("#chuangwei00").append('<option value="none">当前暂无可用宿舍</option>');
+																		} else { //单招学生在时间内选宿舍
+																			if(liucheng == 1) {
+																				//获取宿舍信息
+																				var dropid = "";
+																				var susheOBJmc;
+																				var susheOBJid;
+																				$("#qinshi00").css("width", "0");
+																				$("#qinshijiazai").show();
 																				$.ajax({
 																					type: "post",
 																					dataType: "json",
 																					url: "mobileStudentController.do?getDromList",
 																					data: {
-																						sfzh: sfzh,
+
 																						pid: dropid
 																					},
 																					success: function(data) {
+																						//	alert("jiazai");
+																						//console.log(data);
 																						var end = data.obj;
-														
+																						//console.log(data.msg);
 																						var obj = $.parseJSON(data.msg);
-																						if(end != null && end == "end") {
-																							//alert(end);
-																							for(var i = 0; i < obj.length; i++) {
-																								//alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
-																								susheOBJmc = obj[i].cname;
-																								susheOBJid = obj[i].cc;
-																								var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
-																								$("#chuangwei00").append(susheSEL);
-														
-																								var selsize = $("#chuangwei00 option").size();
-																								if(selsize >= 2) {
-																									console.log(selsize);
-																									$("#chuangweijiazai").hide();
-																									$("#chuangwei00").css("width", "auto");
+
+																						if(obj.length != 0) { //判断是否有床位
+																							if(end != null && end == "end") { //判断是否为END
+																								//	alert(end);
+																								for(var i = 0; i < obj.length; i++) {
+																									alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
 																								}
-																								susheOBJid = val00;
+																							} else {
+																								for(var i = 0; i < obj.length; i++) {
+																									//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+																									susheOBJmc = obj[i].cname;
+																									susheOBJid = obj[i].BS;
+																									if(i <= 0) {
+																										var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+																										$("#qinshi00").append(susheSEL);
+																									}
+
+																									var selsize = $("#qinshi00 option").size();
+																									if(selsize >= 0) {
+																										console.log(selsize);
+																										$("#qinshijiazai").hide();
+																										$("#qinshi00").css("width", "auto");
+																									}
+
+																								}
+																								var drr = $("#qinshi00 option:selected").val();
+																								$("#chuangwei00").css("width", "0");
+																								$("#chuangweijiazai").show();
+																								$("#chuangwei00 option").remove();
+																								$("#chuangwei00").append('<option value="none">请选择</option>');
+																								var val00 = drr;
+																								if(val00 == "none") {
+																									$("#chuangwei00").css("width", "auto");
+																									$("#chuangweijiazai").hide();
+																								}
+																								dropid = val00;
+																								$.ajax({
+																									type: "post",
+																									dataType: "json",
+																									url: "mobileStudentController.do?getDromList",
+																									data: {
+																										sfzh: sfzh,
+																										pid: dropid
+																									},
+																									success: function(data) {
+																										var end = data.obj;
+
+																										var obj = $.parseJSON(data.msg);
+																										if(end != null && end == "end") {
+																											//alert(end);
+																											for(var i = 0; i < obj.length; i++) {
+																												//alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+																												susheOBJmc = obj[i].cname;
+																												susheOBJid = obj[i].cc;
+																												var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+																												$("#chuangwei00").append(susheSEL);
+
+																												var selsize = $("#chuangwei00 option").size();
+																												if(selsize >= 2) {
+																													console.log(selsize);
+																													$("#chuangweijiazai").hide();
+																													$("#chuangwei00").css("width", "auto");
+																												}
+																												susheOBJid = val00;
+																											}
+																										} else {
+																											for(var i = 0; i < obj.length; i++) {
+																												//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+
+																											}
+
+																										}
+																									},
+																									error: function(msg) {
+																										//alert("error:" + msg);
+																										alert("刷新频率过快！");
+																									}
+																								});
+
 																							}
+
 																						} else {
-																							for(var i = 0; i < obj.length; i++) {
-																								//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
-														
-																							}
-														
+																							//alert("无可用床位！");
+																							$("#qinshijiazai").hide();
+																							$("#qinshi00").css("width", "auto");
+																							$("#qinshi00 option").remove();
+																							$("#qinshi00").append('<option value="none">无</option>');
+																							$("#chuangwei00 option").remove();
+																							$("#chuangwei00").append('<option value="none">无</option>');
 																						}
+
 																					},
 																					error: function(msg) {
 																						//alert("error:" + msg);
 																						alert("刷新频率过快！");
 																					}
 																				});
-																			
-											
-																				
-											
+																				//获取宿舍信息end
+
+
 																			}
-											
-																		} else {
-																			//alert("无可用床位！");
-																			$("#qinshijiazai").hide();
-																			$("#qinshi00").css("width", "auto");
-																			$("#qinshi00 option").remove();
-																			$("#qinshi00").append('<option value="none">无</option>');
-																			$("#chuangwei00 option").remove();
-																			$("#chuangwei00").append('<option value="none">无</option>');
 																		}
-											
-																	},
-																	error: function(msg) {
-																		//alert("error:" + msg);
-																		alert("刷新频率过快！");
+
+																	} else { //非单招学生正常流程选宿舍
+
+																			//获取宿舍信息
+																			var dropid = "";
+																			var susheOBJmc;
+																			var susheOBJid;
+																			$("#qinshi00").css("width", "0");
+																			$("#qinshijiazai").show();
+																			$.ajax({
+																				type: "post",
+																				dataType: "json",
+																				url: "mobileStudentController.do?getDromList",
+																				data: {
+
+																					pid: dropid
+																				},
+																				success: function(data) {
+																					//	alert("jiazai");
+																					//console.log(data);
+																					var end = data.obj;
+																					//console.log(data.msg);
+																					var obj = $.parseJSON(data.msg);
+
+																					if(obj.length != 0) { //判断是否有床位
+                                                                                        if (!(end != null && end == "end")) {
+                                                                                            for (var i = 0; i < obj.length; i++) {
+                                                                                                //alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+                                                                                                susheOBJmc = obj[i].cname;
+                                                                                                susheOBJid = obj[i].BS;
+                                                                                                if (i <= 0) {
+                                                                                                    var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                                    $("#qinshi00").append(susheSEL);
+                                                                                                }
+
+                                                                                                var selsize = $("#qinshi00 option").size();
+                                                                                                if (selsize >= 0) {
+                                                                                                    console.log(selsize);
+                                                                                                    $("#qinshijiazai").hide();
+                                                                                                    $("#qinshi00").css("width", "auto");
+                                                                                                }
+
+                                                                                            }
+                                                                                            var drr = $("#qinshi00 option:selected").val();
+                                                                                            $("#chuangwei00").css("width", "0");
+                                                                                            $("#chuangweijiazai").show();
+                                                                                            $("#chuangwei00 option").remove();
+                                                                                            $("#chuangwei00").append('<option value="none">请选择</option>');
+                                                                                            var val00 = drr;
+                                                                                            if (val00 == "none") {
+                                                                                                $("#chuangwei00").css("width", "auto");
+                                                                                                $("#chuangweijiazai").hide();
+                                                                                            }
+                                                                                            dropid = val00;
+                                                                                            $.ajax({
+                                                                                                type: "post",
+                                                                                                dataType: "json",
+                                                                                                url: "mobileStudentController.do?getDromList",
+                                                                                                data: {
+                                                                                                    sfzh: sfzh,
+                                                                                                    pid: dropid
+                                                                                                },
+                                                                                                success: function (data) {
+                                                                                                    var end = data.obj;
+
+                                                                                                    var obj = $.parseJSON(data.msg);
+                                                                                                    if (end != null && end == "end") {
+                                                                                                        //alert(end);
+                                                                                                        for (var i = 0; i < obj.length; i++) {
+                                                                                                            //alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                                            susheOBJmc = obj[i].cname;
+                                                                                                            susheOBJid = obj[i].cc;
+                                                                                                            var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+                                                                                                            $("#chuangwei00").append(susheSEL);
+
+                                                                                                            var selsize = $("#chuangwei00 option").size();
+                                                                                                            if (selsize >= 2) {
+                                                                                                                console.log(selsize);
+                                                                                                                $("#chuangweijiazai").hide();
+                                                                                                                $("#chuangwei00").css("width", "auto");
+                                                                                                            }
+                                                                                                            susheOBJid = val00;
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        for (var i = 0; i < obj.length; i++) {
+
+                                                                                                        }
+
+                                                                                                    }
+                                                                                                },
+                                                                                                error: function (msg) {
+                                                                                                    //alert("error:" + msg);
+                                                                                                    alert("刷新频率过快！");
+                                                                                                }
+                                                                                            });
+
+                                                                                        } else { //判断是否为END
+                                                                                            //	alert(end);
+                                                                                            for (var i = 0; i < obj.length; i++) {
+                                                                                                alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+                                                                                            }
+                                                                                        }
+
+																					} else {
+																						//alert("无可用床位！");
+																						$("#qinshijiazai").hide();
+																						$("#qinshi00").css("width", "auto");
+																						$("#qinshi00 option").remove();
+																						$("#qinshi00").append('<option value="none">无</option>');
+																						$("#chuangwei00 option").remove();
+																						$("#chuangwei00").append('<option value="none">无</option>');
+																					}
+
+																				},
+																				error: function(msg) {
+																					//alert("error:" + msg);
+																					alert("刷新频率过快！");
+																				}
+																			});
+																			//获取宿舍信息end
+
 																	}
-																});
-																
+                                                                    //预先宿舍end
 
-															/*
-															 * 预先获取宿舍信息
-															 * 结束
-															 * */
+																} else {
+																	$(".jiazai").stop().fadeOut(1000);
+																	console.log(bmobj);
+																	//提示报名失败无法进入下一步
+																	$('#fbbm-queren').stop().fadeIn();
+																	//$("#wenzi-con").text(obj);
+																	$("#baoming-fbbut").show();
+																	$("#wenzi-con p").text(bmobj);
+																	$("#baoming-fbbut").click(function() {
+																		$("#fbbm-queren").stop().fadeOut();
+																	});
+
+																}
+
+														},
+														/!*success END*!/
+														error: function() {
+															$(".jiazai").stop().fadeOut(1000);
+															$('#fbbm-queren').stop().fadeIn();
+															//$("#wenzi-con").text(obj);
+															$("#baoming-fbbut").show();
+															console.log("nono11");
+															$("#wenzi-con p").text("连接超时！请稍后重试！");
+															$("#baoming-fbbut").click(function() {
+																$("#fbbm-queren").stop().fadeOut();
+															});
 														}
+													});
+												//b报名方法end
 
-													} else {
-														$(".jiazai").stop().fadeOut(1000);
-														console.log(bmobj);
-														//提示报名失败无法进入下一步
-														$('#fbbm-queren').stop().fadeIn();
-														//$("#wenzi-con").text(obj);
-														$("#baoming-fbbut").show();
-														$("#wenzi-con p").text(bmobj);
-														$("#baoming-fbbut").click(function() {
-															$("#fbbm-queren").stop().fadeOut();
-														});
-
-													}
-												}
-											},
-											/*success END*/
-											error: function() {
+											} else {
 												$(".jiazai").stop().fadeOut(1000);
+												console.log(obj);
+												//分班遮罩层提示分班失败并无法进入下一步
 												$('#fbbm-queren').stop().fadeIn();
-												//$("#wenzi-con").text(obj);
+												$("#wenzi-con p").text(obj);
 												$("#baoming-fbbut").show();
-												console.log("nono11");
-												$("#wenzi-con p").text("连接超时！请稍后重试！");
+												//$("#wenzi-con p").text("分班失败！请联系xxx后继续进行报道流程");
 												$("#baoming-fbbut").click(function() {
 													$("#fbbm-queren").stop().fadeOut();
 												});
+
 											}
-										});
-										//b报名方法end
 
-									} else {
+										},
+										    error: function(msg) {
+											console.log("error:" + msg);
+											$('#fbbm-queren').stop().fadeIn();
+											//$("#wenzi-con").text(obj);
+											$("#baoming-fbbut").show();
+											console.log("nono222");
+											$("#wenzi-con p").text("连接超时！请稍后重试！");
+											$("#baoming-fbbut").click(function() {
+												$("#fbbm-queren").stop().fadeOut();
+											});
+										}
+									});*/
+							} else { //是否缴费else
+								//报名方法AJAx
+
+								$.ajax({
+									type: "post",
+									dataType: "json",
+									url: "mobileStudentController.do?doSignUp",
+									data: {
+										grinfo: JSON.stringify(grinfo),
+										jtinfo: JSON.stringify(jtinfo)
+									},
+									async: true,
+									success: function(data) {
+										var bmsu = data.success;
+										var bmobj = data.msg;
+										if(bmsu == true) {
+											console.log(data.success);
+											console.log(bmobj);
+											$(".jiazai").stop().fadeOut(1000);
+											alert("信息保存成功！请尽快缴费！");
+
+										} else {
+											$(".jiazai").stop().fadeOut(1000);
+											console.log(bmobj);
+											//提示报名失败无法进入下一步
+											$('#fbbm-queren').stop().fadeIn();
+											//$("#wenzi-con").text(obj);
+											$("#baoming-fbbut").show();
+											$("#wenzi-con p").text(bmobj);
+											$("#baoming-fbbut").click(function() {
+												$("#fbbm-queren").stop().fadeOut();
+											});
+
+										}
+									},
+									/*success END*/
+									error: function() {
 										$(".jiazai").stop().fadeOut(1000);
-										console.log(obj);
-										//分班遮罩层提示分班失败并无法进入下一步
-										$('#fbbm-queren').stop().fadeIn();
-										$("#wenzi-con p").text(obj);
-										$("#baoming-fbbut").show();
-										//$("#wenzi-con p").text("分班失败！请联系xxx后继续进行报道流程");
-										$("#baoming-fbbut").click(function() {
-											$("#fbbm-queren").stop().fadeOut();
-										});
-
-									}
-
-								},
-								error: function(msg) {
-									console.log("error:" + msg);
-									$('#fbbm-queren').stop().fadeIn();
-									//$("#wenzi-con").text(obj);
-									$("#baoming-fbbut").show();
-									console.log("nono222");
-									$("#wenzi-con p").text("连接超时！请稍后重试！");
-									$("#baoming-fbbut").click(function() {
-										$("#fbbm-queren").stop().fadeOut();
-									});
-								}
-							});
-						} else { //是否缴费else
-							//报名方法AJAx
-
-							$.ajax({
-								type: "post",
-								dataType: "json",
-								url: "mobileStudentController.do?doSignUp",
-								data: {
-									grinfo: JSON.stringify(grinfo),
-									jtinfo: JSON.stringify(jtinfo)
-								},
-								async: true,
-								success: function(data) {
-									var bmsu = data.success;
-									var bmobj = data.msg;
-									if(bmsu == true) {
-										console.log(data.success);
-										console.log(bmobj);
-										$(".jiazai").stop().fadeOut(1000);
-										alert("信息保存成功！请尽快缴费！");
-
-									} else {
-										$(".jiazai").stop().fadeOut(1000);
-										console.log(bmobj);
-										//提示报名失败无法进入下一步
 										$('#fbbm-queren').stop().fadeIn();
 										//$("#wenzi-con").text(obj);
 										$("#baoming-fbbut").show();
-										$("#wenzi-con p").text(bmobj);
+										console.log("nono11");
+										$("#wenzi-con p").text("连接超时！请稍后重试！");
 										$("#baoming-fbbut").click(function() {
 											$("#fbbm-queren").stop().fadeOut();
 										});
-
 									}
-								},
-								/*success END*/
-								error: function() {
-									$(".jiazai").stop().fadeOut(1000);
-									$('#fbbm-queren').stop().fadeIn();
-									//$("#wenzi-con").text(obj);
-									$("#baoming-fbbut").show();
-									console.log("nono11");
-									$("#wenzi-con p").text("连接超时！请稍后重试！");
-									$("#baoming-fbbut").click(function() {
-										$("#fbbm-queren").stop().fadeOut();
-									});
-								}
-							});
-							//b报名方法end
-						} //判断是否缴费end
+								});
+								//b报名方法end
+							} //判断是否缴费end
 
-					} else {
-						alert("请至少填写完整一位家长或监护人的信息！");
+						} else {
+							alert("请至少填写完整一位家长或监护人的信息！");
 
+						}
 					}
-				}
 
-			});
+				});
 
 			isTime();
 			if(sfdz == "Y") {
@@ -523,127 +1042,123 @@ $(document).ready(function() {
 				} else { //单招学生在时间内选宿舍
 					if(liucheng == 1) {
 						//获取宿舍信息
-					var dropid = "";
-					var susheOBJmc;
-					var susheOBJid;
-					$("#qinshi00").css("width", "0");
-					$("#qinshijiazai").show();
-					$.ajax({
-						type: "post",
-						dataType: "json",
-						url: "mobileStudentController.do?getDromList",
-						data: {
+						var dropid = "";
+						var susheOBJmc;
+						var susheOBJid;
+						$("#qinshi00").css("width", "0");
+						$("#qinshijiazai").show();
+						$.ajax({
+							type: "post",
+							dataType: "json",
+							url: "mobileStudentController.do?getDromList",
+							data: {
 
-							pid: dropid
-						},
-						success: function(data) {
-							//	alert("jiazai");
-							//console.log(data);
-							var end = data.obj;
-							//console.log(data.msg);
-							var obj = $.parseJSON(data.msg);
+								pid: dropid
+							},
+							success: function(data) {
+								//	alert("jiazai");
+								//console.log(data);
+								var end = data.obj;
+								//console.log(data.msg);
+								var obj = $.parseJSON(data.msg);
 
-							if(obj.length != 0) { //判断是否有床位
-								if(end != null && end == "end") { //判断是否为END
-									//	alert(end);
-									for(var i = 0; i < obj.length; i++) {
-										alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
-									}
-								} else {
-									for(var i = 0; i < obj.length; i++) {
-										//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
-										susheOBJmc = obj[i].cname;
-										susheOBJid = obj[i].BS;
-										if(i<=0){
-											var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
-											$("#qinshi00").append(susheSEL);
+								if(obj.length != 0) { //判断是否有床位
+									if(end != null && end == "end") { //判断是否为END
+										//	alert(end);
+										for(var i = 0; i < obj.length; i++) {
+											alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
 										}
-
-										var selsize = $("#qinshi00 option").size();
-										if(selsize >= 0) {
-											console.log(selsize);
-											$("#qinshijiazai").hide();
-											$("#qinshi00").css("width", "auto");
-										}
-										
-										
-									}
-									var drr=$("#qinshi00 option:selected").val();
-									$("#chuangwei00").css("width", "0");
-									$("#chuangweijiazai").show();
-									$("#chuangwei00 option").remove();
-									$("#chuangwei00").append('<option value="none">请选择</option>');
-									var val00 = drr;
-									if(val00 == "none") {
-										$("#chuangwei00").css("width", "auto");
-										$("#chuangweijiazai").hide();
-									}
-									dropid = val00;
-									$.ajax({
-										type: "post",
-										dataType: "json",
-										url: "mobileStudentController.do?getDromList",
-										data: {
-											sfzh: sfzh,
-											pid: dropid
-										},
-										success: function(data) {
-											var end = data.obj;
-			
-											var obj = $.parseJSON(data.msg);
-											if(end != null && end == "end") {
-												//alert(end);
-												for(var i = 0; i < obj.length; i++) {
-													//alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
-													susheOBJmc = obj[i].cname;
-													susheOBJid = obj[i].cc;
-													var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
-													$("#chuangwei00").append(susheSEL);
-			
-													var selsize = $("#chuangwei00 option").size();
-													if(selsize >= 2) {
-														console.log(selsize);
-														$("#chuangweijiazai").hide();
-														$("#chuangwei00").css("width", "auto");
-													}
-													susheOBJid = val00;
-												}
-											} else {
-												for(var i = 0; i < obj.length; i++) {
-													//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
-			
-												}
-			
+									} else {
+										for(var i = 0; i < obj.length; i++) {
+											//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+											susheOBJmc = obj[i].cname;
+											susheOBJid = obj[i].BS;
+											if(i <= 0) {
+												var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+												$("#qinshi00").append(susheSEL);
 											}
-										},
-										error: function(msg) {
-											//alert("error:" + msg);
-											alert("刷新频率过快！");
+
+											var selsize = $("#qinshi00 option").size();
+											if(selsize >= 0) {
+												console.log(selsize);
+												$("#qinshijiazai").hide();
+												$("#qinshi00").css("width", "auto");
+											}
+
 										}
-									});
-								
+										var drr = $("#qinshi00 option:selected").val();
+										$("#chuangwei00").css("width", "0");
+										$("#chuangweijiazai").show();
+										$("#chuangwei00 option").remove();
+										$("#chuangwei00").append('<option value="none">请选择</option>');
+										var val00 = drr;
+										if(val00 == "none") {
+											$("#chuangwei00").css("width", "auto");
+											$("#chuangweijiazai").hide();
+										}
+										dropid = val00;
+										$.ajax({
+											type: "post",
+											dataType: "json",
+											url: "mobileStudentController.do?getDromList",
+											data: {
+												sfzh: sfzh,
+												pid: dropid
+											},
+											success: function(data) {
+												var end = data.obj;
 
-									
+												var obj = $.parseJSON(data.msg);
+												if(end != null && end == "end") {
+													//alert(end);
+													for(var i = 0; i < obj.length; i++) {
+														//alert("名称：" + obj[i].cname + "ID：" + obj[i].cc);
+														susheOBJmc = obj[i].cname;
+														susheOBJid = obj[i].cc;
+														var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
+														$("#chuangwei00").append(susheSEL);
 
+														var selsize = $("#chuangwei00 option").size();
+														if(selsize >= 2) {
+															console.log(selsize);
+															$("#chuangweijiazai").hide();
+															$("#chuangwei00").css("width", "auto");
+														}
+														susheOBJid = val00;
+													}
+												} else {
+													for(var i = 0; i < obj.length; i++) {
+														//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
+
+													}
+
+												}
+											},
+											error: function(msg) {
+												//alert("error:" + msg);
+												alert("刷新频率过快！");
+											}
+										});
+
+									}
+
+								} else {
+									//alert("无可用床位！");
+									$("#qinshijiazai").hide();
+									$("#qinshi00").css("width", "auto");
+									$("#qinshi00 option").remove();
+									$("#qinshi00").append('<option value="none">无</option>');
+									$("#chuangwei00 option").remove();
+									$("#chuangwei00").append('<option value="none">无</option>');
 								}
 
-							} else {
-								//alert("无可用床位！");
-								$("#qinshijiazai").hide();
-								$("#qinshi00").css("width", "auto");
-								$("#qinshi00 option").remove();
-								$("#qinshi00").append('<option value="none">无</option>');
-								$("#chuangwei00 option").remove();
-								$("#chuangwei00").append('<option value="none">无</option>');
+							},
+							error: function(msg) {
+								//alert("error:" + msg);
+								alert("刷新频率过快！");
 							}
+						});
 
-						},
-						error: function(msg) {
-							//alert("error:" + msg);
-							alert("刷新频率过快！");
-						}
-					});
-					
 					}
 				}
 
@@ -681,7 +1196,7 @@ $(document).ready(function() {
 										//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
 										susheOBJmc = obj[i].cname;
 										susheOBJid = obj[i].BS;
-										if(i<=0){
+										if(i <= 0) {
 											var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
 											$("#qinshi00").append(susheSEL);
 										}
@@ -692,10 +1207,9 @@ $(document).ready(function() {
 											$("#qinshijiazai").hide();
 											$("#qinshi00").css("width", "auto");
 										}
-										
-										
+
 									}
-									var drr=$("#qinshi00 option:selected").val();
+									var drr = $("#qinshi00 option:selected").val();
 									$("#chuangwei00").css("width", "0");
 									$("#chuangweijiazai").show();
 									$("#chuangwei00 option").remove();
@@ -716,7 +1230,7 @@ $(document).ready(function() {
 										},
 										success: function(data) {
 											var end = data.obj;
-			
+
 											var obj = $.parseJSON(data.msg);
 											if(end != null && end == "end") {
 												//alert(end);
@@ -726,7 +1240,7 @@ $(document).ready(function() {
 													susheOBJid = obj[i].cc;
 													var susheSEL = '<option value=' + susheOBJid + '>' + susheOBJmc + '</option>';
 													$("#chuangwei00").append(susheSEL);
-			
+
 													var selsize = $("#chuangwei00 option").size();
 													if(selsize >= 2) {
 														console.log(selsize);
@@ -738,9 +1252,9 @@ $(document).ready(function() {
 											} else {
 												for(var i = 0; i < obj.length; i++) {
 													//alert("名称：" + obj[i].cname + "ID：" + obj[i].BS);
-			
+
 												}
-			
+
 											}
 										},
 										error: function(msg) {
@@ -748,9 +1262,6 @@ $(document).ready(function() {
 											alert("刷新频率过快！");
 										}
 									});
-								
-
-									
 
 								}
 
@@ -770,11 +1281,9 @@ $(document).ready(function() {
 							alert("刷新频率过快！");
 						}
 					});
-					
+
 				}
 			}
-
-			
 
 			//page5
 			//是否确认分配宿舍并验证是否为空 并跳转下一步
@@ -1150,308 +1659,296 @@ $(document).ready(function() {
 		}
 	});
 
-	//判断性别
-	if(xb == 1) {
-		$("#xb").text("男");
+//判断性别
+if(xb == 1) {
+	$("#xb").text("男");
+} else {
+	$("#xb").text("女");
+}
+
+//判断是否单招
+
+if(dz == "N") {
+	$("#dz").text("否");
+} else {
+	$("#dz").text("是");
+}
+
+//判断是否领钥匙
+
+if(sfcollar_key == "N") {
+	$("#yaoshi").text("否");
+} else {
+	$("#yaoshi").text("是");
+}
+
+//基本信息填手机号隐藏显示
+var shoujihao
+$("#inputout").click(function() {
+	$("#inputout p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
+});
+if(sjh != "null" && sjh != "") {
+	shoujihao = sjh;
+	$("#inputout p").html(shoujihao);
+}
+
+$("#inputout input").blur(function() {
+	shoujihao = $("#inputout input").val();
+
+	console.log(shoujihao);
+	if(shoujihao != "") {
+		//alert("ok");
+		$("#inputout p").html(shoujihao);
 	} else {
-		$("#xb").text("女");
-	}
-
-	//判断是否单招
-
-	if(dz == "N") {
-		$("#dz").text("否");
-	} else {
-		$("#dz").text("是");
-	}
-
-	//判断是否领钥匙
-
-	if(sfcollar_key == "N") {
-		$("#yaoshi").text("否");
-	} else {
-		$("#yaoshi").text("是");
-	}
-
-	//基本信息填手机号隐藏显示
-	var shoujihao
-	$("#inputout").click(function() {
-		$("#inputout p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
-	});
-	if(sjh != "null" && sjh != "") {
+		//alert("no");
 		shoujihao = sjh;
 		$("#inputout p").html(shoujihao);
 	}
 
-	$("#inputout input").blur(function() {
-		shoujihao = $("#inputout input").val();
+	$("#inputout input").hide().prev().show().css("color", "#555");
 
-		console.log(shoujihao);
-		if(shoujihao != "") {
-			//alert("ok");
-			$("#inputout p").html(shoujihao);
-		} else {
-			//alert("no");
-			shoujihao = sjh;
-			$("#inputout p").html(shoujihao);
-		}
+});
 
-		$("#inputout input").hide().prev().show().css("color", "#555");
+//基本信息填QQ邮箱QQmail隐藏显示
+var youxiang
+$("#inputout2").click(function() {
+	$("#stMail").focus();
+	$("#inputout2 p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
+});
 
-	});
+$("#stMail").blur(function() {
+	$("#inputout2 p").text("");
+	youxiang = $("#inputout2 input").val();
 
-	//基本信息填QQ邮箱QQmail隐藏显示
-	var youxiang
-	$("#inputout2").click(function() {
-		$("#stMail").focus();
-		$("#inputout2 p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
-	});
+	if(!youxiang.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
 
-	$("#stMail").blur(function() {
-		$("#inputout2 p").text("");
-		youxiang = $("#inputout2 input").val();
-	
-		
-		  if(!youxiang.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/))
-		  {
-		   
-		  	$("#stMail").val("").attr('placeholder', '邮箱格式不正确 请重新输入');
-		  }
-
-		/*console.log(youxiang);
-		if(youxiang != "") {
-			//alert("ok");
-			$("#inputout2 p").html(youxiang);
-
-		} else {
-			//alert("no");
-			youxiang = "请输入邮箱";
-			$("#inputout2 p").html(youxiang);
-		}*/
-
-		
-
-	});
-
-	//生源地
-	$("#inputout1").click(function() {
-		$("#inputout1 p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
-	});
-
-	$("#inputout1 input").blur(function() {
-		var shengyuandi = $("#inputout1 input").val();
-		console.log(shengyuandi);
-		if(shengyuandi != "") {
-			//alert("ok");
-			$("#inputout1 p").html(shengyuandi);
-		} else {
-			//alert("no");
-
-			$("#inputout1 p").html("请输入");
-		}
-
-		$("#inputout1 input").hide().prev().show().css("color", "#555");
-
-	});
-
-	//贷款选项卡高亮
-	$(".daikuan-left").click(function() {
-		$(".daikuan-left").removeClass("daikuan-gaoliang-no").addClass("daikuan-gaoliang").next().addClass("daikuan-gaoliang-no");
-		$("#daikuan1").next().stop().fadeOut(200).prev().stop().fadeIn(200);
-	});
-
-	$(".daikuan-right").click(function() {
-		$(".daikuan-right").removeClass("daikuan-gaoliang-no").addClass("daikuan-gaoliang").prev().addClass("daikuan-gaoliang-no");
-		$("#daikuan2").prev().stop().fadeOut(200).next().stop().fadeIn(200);
-	});
-
-	//个人信息展开隐藏
-	$(".zhankai").children(".jiantou-geren").addClass("xiala-down");
-	$(".zhankai").click(function() {
-		$(this).prev().stop().slideToggle();
-		$(this).children(".jiantou-geren").toggleClass("xiala-down").toggleClass("xiala-up");
-	});
-
-	//绿色通道 缴费下拉箭头
-	$(".feiyongxinxi li").children(".feiyong-list-wrap").children(".feiyong-con").children(".xiala").addClass("xiala-down");
-	$(".feiyongxinxi li").click(function() {
-		$(this).children(".feiyongxiangqing").stop().slideToggle(200);
-		$(this).children(".feiyong-list-wrap").children(".feiyong-con").children(".xiala").toggleClass("xiala-down").toggleClass("xiala-up");
-	});
-
-	//控制贷款申请文字在200字以内
-	$("#shenqing-shuoming").bind('input propertychange', function() {
-		var curLength = $("#shenqing-shuoming").val().length;
-
-		if(curLength > 200) {
-			var num = $("#shenqing-shuoming").val().substr(0, 200);
-			$("#shenqing-shuoming").val(num);
-			alert("已超过限制字数（200字）！");
-		}
-
-	});
-
-	//控制家庭住址在50字
-
-	$("#jiatingzhuzhi").bind('input propertychange', function() {
-		var curLength = $("#jiatingzhuzhi").val().length;
-
-		if(curLength > 50) {
-			var num = $("#jiatingzhuzhi").val().substr(0, 50);
-			$("#jiatingzhuzhi").val(num);
-			alert("已超过限制字数（50字）！");
-		}
-
-	});
-
-	//是否购买单选框样式切换
-	$(".radio-but").click(function() {
-		$(this).parent().siblings().children(".radio-but").removeClass("radio-but-on").parent().siblings().children(".radio-but").addClass("radio-but-on");
-	});
-
-	//是否选购页面切换 给假的radio赋值 改变假的radio样式
-	var val = $('input:radio[name="chuang"]:checked').val();
-	$(".shi-chuang").children(".radio-but").addClass("radio-but-on");
-	$(".shi-chuang").click(function() {
-		$("#radiotrue").attr("checked", true);
-		$(".fou-chuang").children(".radio-but").removeClass("radio-but-on");
-		$(this).children(".radio-but").addClass("radio-but-on");
-		val = "true";
-		chuangshangmoney = 300;
-		$(".buxuan-chuangshang").hide().prev().stop().fadeIn();
-		console.log(chuangshangmoney);
-		zongjine = junxunmoney + chuangshangmoney;
-
-	});
-	$(".fou-chuang").click(function() {
-		$("#radiofalse").attr("checked", true);
-		$(".shi-chuang").children(".radio-but").removeClass("radio-but-on");
-		$(this).children(".radio-but").addClass("radio-but-on");
-		val = "false";
-		chuangshangmoney = 0;
-		$(".xuan-chuangshang").hide().next().stop().fadeIn();
-		console.log(chuangshangmoney);
-	});
-
-	//刷新方法
-	function reloadout() {
-
-		$.ajax({
-			type: "post",
-			url: "mobileStudentController.do?refresh",
-
-			async: true,
-			success: function(data) {
-				console.log(data);
-				window.location.href = "mobileStudentController.do?goLogin&" + new Date();
-
-			}
-
-		});
-	}
-	//点击刷新，刷新按钮旋转
-	$(".shuaxin").toggle(function() {
-			$(".shuaxin-tubiao").removeClass("xuanzhuan1").addClass("xuanzhuan0");
-			setTimeout(reloadout(), 900);
-		},
-		function() {
-			$(".shuaxin-tubiao").removeClass("xuanzhuan0").addClass("xuanzhuan1");
-			setTimeout(reloadout(), 900);
-		}
-	);
-
-	//个人信息页面家庭成员
-	$(".jiating-list-wrap").children(".jiating-con").children(".xiala").addClass("xiala-down");
-	$(".jiating-list-wrap").click(function() {
-		$(this).next(".jiatingxiangqing").stop().slideToggle(200);
-		$(this).children(".jiating-con").children(".xiala").toggleClass("xiala-down").toggleClass("xiala-up");
-	});
-	//append服装尺码
-	for(var chima = 140; chima <= 200; chima = chima + 5) {
-		//console.log(chima);
-		var fzcmsel = '<option value="' + chima + '">' + chima + '</option>';
-		$("#fuzhuangchima").append(fzcmsel);
+		$("#stMail").val("").attr('placeholder', '邮箱格式不正确 请重新输入');
 	}
 
-	//append鞋子尺码
-	for(var chima = 34; chima <= 50; chima = chima + 1) {
-		//	console.log(chima);
-		var xzcmsel = '<option value="' + chima + '">' + chima + '</option>';
-		$("#xiezichima").append(xzcmsel);
+	/*console.log(youxiang);
+	if(youxiang != "") {
+		//alert("ok");
+		$("#inputout2 p").html(youxiang);
+
+	} else {
+		//alert("no");
+		youxiang = "请输入邮箱";
+		$("#inputout2 p").html(youxiang);
+	}*/
+
+});
+
+//生源地
+$("#inputout1").click(function() {
+	$("#inputout1 p").hide().parent().children().last().show().css("border", "0").css("text-align", "right").css("color", "#555");
+});
+
+$("#inputout1 input").blur(function() {
+	var shengyuandi = $("#inputout1 input").val();
+	console.log(shengyuandi);
+	if(shengyuandi != "") {
+		//alert("ok");
+		$("#inputout1 p").html(shengyuandi);
+	} else {
+		//alert("no");
+
+		$("#inputout1 p").html("请输入");
 	}
 
-	//验证家长信息输入INPUT格式是否正确 (控制长度在20以内)
-	$(".inputjzxm").change(function() {
-		var inputlen = $(this).val().length;
-		if(inputlen >= 20) {
-			$(this).val("").attr('placeholder', '姓名格式不正确 请重新输入').addClass("invalid");
+	$("#inputout1 input").hide().prev().show().css("color", "#555");
+
+});
+
+//贷款选项卡高亮
+$(".daikuan-left").click(function() {
+	$(".daikuan-left").removeClass("daikuan-gaoliang-no").addClass("daikuan-gaoliang").next().addClass("daikuan-gaoliang-no");
+	$("#daikuan1").next().stop().fadeOut(200).prev().stop().fadeIn(200);
+});
+
+$(".daikuan-right").click(function() {
+	$(".daikuan-right").removeClass("daikuan-gaoliang-no").addClass("daikuan-gaoliang").prev().addClass("daikuan-gaoliang-no");
+	$("#daikuan2").prev().stop().fadeOut(200).next().stop().fadeIn(200);
+});
+
+//个人信息展开隐藏
+$(".zhankai").children(".jiantou-geren").addClass("xiala-down"); $(".zhankai").click(function() {
+	$(this).prev().stop().slideToggle();
+	$(this).children(".jiantou-geren").toggleClass("xiala-down").toggleClass("xiala-up");
+});
+
+//绿色通道 缴费下拉箭头
+$(".feiyongxinxi li").children(".feiyong-list-wrap").children(".feiyong-con").children(".xiala").addClass("xiala-down"); $(".feiyongxinxi li").click(function() {
+	$(this).children(".feiyongxiangqing").stop().slideToggle(200);
+	$(this).children(".feiyong-list-wrap").children(".feiyong-con").children(".xiala").toggleClass("xiala-down").toggleClass("xiala-up");
+});
+
+//控制贷款申请文字在200字以内
+$("#shenqing-shuoming").bind('input propertychange', function() {
+	var curLength = $("#shenqing-shuoming").val().length;
+
+	if(curLength > 200) {
+		var num = $("#shenqing-shuoming").val().substr(0, 200);
+		$("#shenqing-shuoming").val(num);
+		alert("已超过限制字数（200字）！");
+	}
+
+});
+
+//控制家庭住址在50字
+
+$("#jiatingzhuzhi").bind('input propertychange', function() {
+	var curLength = $("#jiatingzhuzhi").val().length;
+
+	if(curLength > 50) {
+		var num = $("#jiatingzhuzhi").val().substr(0, 50);
+		$("#jiatingzhuzhi").val(num);
+		alert("已超过限制字数（50字）！");
+	}
+
+});
+
+//是否购买单选框样式切换
+$(".radio-but").click(function() {
+	$(this).parent().siblings().children(".radio-but").removeClass("radio-but-on").parent().siblings().children(".radio-but").addClass("radio-but-on");
+});
+
+//是否选购页面切换 给假的radio赋值 改变假的radio样式
+var val = $('input:radio[name="chuang"]:checked').val(); $(".shi-chuang").children(".radio-but").addClass("radio-but-on"); $(".shi-chuang").click(function() {
+	$("#radiotrue").attr("checked", true);
+	$(".fou-chuang").children(".radio-but").removeClass("radio-but-on");
+	$(this).children(".radio-but").addClass("radio-but-on");
+	val = "true";
+	chuangshangmoney = 300;
+	$(".buxuan-chuangshang").hide().prev().stop().fadeIn();
+	console.log(chuangshangmoney);
+	zongjine = junxunmoney + chuangshangmoney;
+
+}); $(".fou-chuang").click(function() {
+	$("#radiofalse").attr("checked", true);
+	$(".shi-chuang").children(".radio-but").removeClass("radio-but-on");
+	$(this).children(".radio-but").addClass("radio-but-on");
+	val = "false";
+	chuangshangmoney = 0;
+	$(".xuan-chuangshang").hide().next().stop().fadeIn();
+	console.log(chuangshangmoney);
+});
+
+//刷新方法
+function reloadout() {
+
+	$.ajax({
+		type: "post",
+		url: "mobileStudentController.do?refresh",
+
+		async: true,
+		success: function(data) {
+			console.log(data);
+			window.location.href = "mobileStudentController.do?goLogin&" + new Date();
+
 		}
-	})
 
-	//判断手机号是否是11位并且是否是数字并且是否是1开头的数字
-	$(".inputjzdh").change(function() {
-		var inputlen = $(this).val().length;
-		var inputcon = $(this).val();
-
-		var firststr = inputcon.substr(0, 1); //获取手机号的第一位，判断是否是1
-
-		if(isNaN(inputcon) == true || inputlen > 11 || firststr != 1) {
-			$(this).val("").attr('placeholder', '手机号格式不正确 请重新输入').addClass("invalid");
-
-		}
 	});
+}
+//点击刷新，刷新按钮旋转
+$(".shuaxin").toggle(function() {
+		$(".shuaxin-tubiao").removeClass("xuanzhuan1").addClass("xuanzhuan0");
+		setTimeout(reloadout(), 900);
+	},
+	function() {
+		$(".shuaxin-tubiao").removeClass("xuanzhuan0").addClass("xuanzhuan1");
+		setTimeout(reloadout(), 900);
+	}
+);
 
+//个人信息页面家庭成员
+$(".jiating-list-wrap").children(".jiating-con").children(".xiala").addClass("xiala-down"); $(".jiating-list-wrap").click(function() {
+	$(this).next(".jiatingxiangqing").stop().slideToggle(200);
+	$(this).children(".jiating-con").children(".xiala").toggleClass("xiala-down").toggleClass("xiala-up");
+});
+//append服装尺码
+for(var chima = 140; chima <= 200; chima = chima + 5) {
+	//console.log(chima);
+	var fzcmsel = '<option value="' + chima + '">' + chima + '</option>';
+	$("#fuzhuangchima").append(fzcmsel);
+}
 
-	//判断亲属关系最长输入5个字
-	$(".inputjzgx").change(function() {
-		var inputlen = $(this).val().length;
-		if(inputlen > 5) {
-			$(this).val("").attr('placeholder', '亲属关系格式不正确 请重新输入').addClass("invalid");
-		}
-	})
+//append鞋子尺码
+for(var chima = 34; chima <= 50; chima = chima + 1) {
+	//	console.log(chima);
+	var xzcmsel = '<option value="' + chima + '">' + chima + '</option>';
+	$("#xiezichima").append(xzcmsel);
+}
 
-	//判断身高体重最长3位数 必须为数字 不能0开头
-	$(".sgtz").change(function() {
-		var inputlen = $(this).val().length;
-		var inputcon = $(this).val();
-		var firststr = inputcon.substr(0, 1);
-		if(isNaN(inputcon) == true || inputlen > 3 || firststr == 0) {
-			$(this).val("").attr('placeholder', '输入格式不正确 请重新输入').addClass("invalid");
+//验证家长信息输入INPUT格式是否正确 (控制长度在20以内)
+$(".inputjzxm").change(function() {
+	var inputlen = $(this).val().length;
+	if(inputlen >= 20) {
+		$(this).val("").attr('placeholder', '姓名格式不正确 请重新输入').addClass("invalid");
+	}
+})
 
-		}
-	});
-	
-	//个人信息中头像变大
-	
-	$(".tobig").click(function(){
-		$(this).stop().animate({
-			height:'0px',
-		},300);
-		$(this).parent().prev().show().stop().animate({
-			height:'200px'
-		},300);
-		$(".upicon").show().stop().animate({
-			right:'30px'
-		},300);
-	});
-	//个人信息头像变小
+//判断手机号是否是11位并且是否是数字并且是否是1开头的数字
+$(".inputjzdh").change(function() {
+	var inputlen = $(this).val().length;
+	var inputcon = $(this).val();
 
-	$(".bigTouxiang").click(function(){
-		$(this).stop().animate({
-			height:'0px'
-		},300);
-		$(this).next().children(".tobig").stop().animate({
-			height:'45px'
-		},300);
-		$(".upicon").stop().animate({
-			right:'-30px'
-		},300);
-		setTimeout('$(".upicon").hide();',300);
-		
-	})
-	
-	//设置头像
-	$(".geren-touxiang img").attr('src',"plug-in/weixin/yx/images/yicun.png");
-	
-	
+	var firststr = inputcon.substr(0, 1); //获取手机号的第一位，判断是否是1
+
+	if(isNaN(inputcon) == true || inputlen > 11 || firststr != 1) {
+		$(this).val("").attr('placeholder', '手机号格式不正确 请重新输入').addClass("invalid");
+
+	}
+});
+
+//判断亲属关系最长输入5个字
+$(".inputjzgx").change(function() {
+	var inputlen = $(this).val().length;
+	if(inputlen > 5) {
+		$(this).val("").attr('placeholder', '亲属关系格式不正确 请重新输入').addClass("invalid");
+	}
+})
+
+//判断身高体重最长3位数 必须为数字 不能0开头
+$(".sgtz").change(function() {
+	var inputlen = $(this).val().length;
+	var inputcon = $(this).val();
+	var firststr = inputcon.substr(0, 1);
+	if(isNaN(inputcon) == true || inputlen > 3 || firststr == 0) {
+		$(this).val("").attr('placeholder', '输入格式不正确 请重新输入').addClass("invalid");
+
+	}
+});
+
+//个人信息中头像变大
+
+$(".tobig").click(function() {
+	$(this).stop().animate({
+		height: '0px',
+	}, 300);
+	$(this).parent().prev().show().stop().animate({
+		height: '200px'
+	}, 300);
+	$(".upicon").show().stop().animate({
+		right: '30px'
+	}, 300);
+});
+//个人信息头像变小
+
+$(".bigTouxiang").click(function() {
+	$(this).stop().animate({
+		height: '0px'
+	}, 300);
+	$(this).next().children(".tobig").stop().animate({
+		height: '45px'
+	}, 300);
+	$(".upicon").stop().animate({
+		right: '-30px'
+	}, 300);
+	setTimeout('$(".upicon").hide();', 300);
+
+})
+
+//设置头像
+$(".geren-touxiang img").attr('src', "plug-in/weixin/yx/images/yicun.png");
+
 });
