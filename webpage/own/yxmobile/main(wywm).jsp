@@ -56,16 +56,15 @@
 				                        	var imageHref=value[i].imageHref;
 				                        	var id=value[i].id;
 				                    		var summary=value[i].summary;
-
 				                    		var createDate=value[i].createDate;
 				                    		var idurl="cmsController.do?goPage&page=article&articleid="+id;
 				                    		var datecon =createDate.substr(0,10);
 				                        	//console.log(imageHref);
 				                        	//console.log(title);
 				                        	//console.log(id);
-				                        	console.log(summary);
+				                        	//console.log(summary);
 			                            	//setData(value[i]);
-			                            	var htmlcon='<div class="list"><a href='+idurl+	'><div class="box"><div class="left"><img src='+imageHref+'></div><div class="right"><h1>'+title+'</h1><p id="summary"><font>'+summary+'</font></p><span>'+datecon+'</span></p></div></div></a></div>';
+			                            	var htmlcon='<div class="list"><a href='+idurl+	'><div class="box"><div class="left"><img src='+imageHref+'></div><div class="right"><h1>'+title+'</h1><p><font>'+summary+'</font></p><span>'+datecon+'</span></p></div></div></a></div>';
 			                            	$("#list").append(htmlcon);
 			                            }
 			                            	var htmlcon1='<a href='+idurl1+'><div class="tp" id="tp">'+'<img src='+imageHref1+'><span>'+title1+'</span>'+'</div></a>'
@@ -100,14 +99,15 @@
 					<p></p>
 				</div>
 				<div class="conbut" id="querenbut-main" style="width:100%;text-align: center;line-height: 47px;display:none">确定</div>
-    <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid #ccc">取消</div>
+    <div class="conbut" id="main-quxiao" style="display:none;box-sizing: border-box;border-right:1px solid
+    #ccc">取消</div>
     <div class="conbut" id="main-querenbut" style="display:none;">确定</div>
 			</div>
 		</div>
 		<div class="stuinfo">
 			<div class="jibenxinxi">
 				<div class="touxiang"></div>
-				<!--<div class="loginout">注销</div>-->
+				<div class="loginout">注销</div>
 
 				<div class="wenzi">
 					<div class="xingming">
@@ -223,9 +223,9 @@
 
 				},
 				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-				　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-				　　　　　 alert("连接超时");
-				　　　　}
+				if(status=='timeout'){//超时,status还有success,error等值的情况
+				 alert("连接超时");
+				}
 				}
 			});
 		}
@@ -268,13 +268,13 @@
 
 	$(document).ready(function() {
 
-
-	$.ajax({
+	var countAjax = null;  
+	countAjax=$.ajax({
 		type : "post",
 		dataType : "json",
 		url : "mobileStudentController.do?getSumCount",
 		async:true,
-		timeout:5000,
+		
 		success : function(data) {
 		var obj = $.parseJSON(data.msg);
 			//alert(obj.bjcount+"**" + obj.zycount +"**"+ obj.sscount);
@@ -286,19 +286,61 @@
 		$(".tongsushe-s").html(sscount);
 
 		},
-		complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-		　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-		　　　　　
-		　　　　　 alert("连接超时");
-		　　　　}
-		},
+		
 		error : function(msg) {
-			alert("error:" + msg);
+			ajax.abort();
+			
 		}
 	});
 
 
+	
 
+	$(".loginout").click(function(){
+
+	$("#querenbut-main").hide();
+	$(".zhezhao-queren").stop().fadeIn();
+	$("#main-quxiao").show();
+	$("#main-querenbut").show();
+	$("#main-quxiao").click(function() {
+		$(".zhezhao-queren").stop().fadeOut();
+	});
+	$("#main-querenbut").click(function() {
+		$.ajax({
+				type: "post",
+				url: "mobileStudentController.do?cancelUser",
+				async: true,
+				dataType: "json",
+				success: function(data) {
+				if(data.success==true){
+					window.location.href="mobileStudentController.do?goLogin";
+				
+				}else{
+					alert("注销失败！");
+				}
+					
+				
+				},
+				complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
+					if(status=='timeout'){//超时,status还有success,error等值的情况
+					 alert("连接超时");
+					}
+				}
+			});
+	});
+	$(".queren-wenzi p").text("是否确认注销本帐号？");
+		
+			
+		
+		
+	});
+	
+
+
+
+
+	
+	
 
 
 
@@ -323,6 +365,7 @@
 			//验证电脑端是否有数据
 			var flowname = "${studentInfo.flowname}";
 			var iskey = "${studentInfo.sfcollar_key}";
+			
 
 				if((flowname == "" || flowname == "null") && iskey == "N") {
 
@@ -363,10 +406,10 @@
 							alert("error:" + msg);
 						},
 						complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-					　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-					　　　　　
-					　　　　　 alert("连接超时");
-					　　　　}
+						if(status=='timeout'){//超时,status还有success,error等值的情况
+						
+						 alert("连接超时");
+						}
 						}
 					});
 
@@ -445,11 +488,9 @@
                         alert("error:" + msg);
                         },
                         complete:function(XMLHttpRequest,status){ //请求完成后最终执行参数
-                        　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
-                        　　　　　
-                        　　　　　
-                        　　　　　 alert("连接超时");
-                        　　　　}
+	                        if(status=='timeout'){//超时,status还有success,error等值的情况
+	                        alert("连接超时");
+	                        }
                         }
 					});
 
