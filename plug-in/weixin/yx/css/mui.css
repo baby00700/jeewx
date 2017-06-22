@@ -2301,7 +2301,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    color: inherit;
+   
   /*&:active {
       background-color: #eee;
   }*/

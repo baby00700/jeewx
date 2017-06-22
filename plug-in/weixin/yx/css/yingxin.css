@@ -6,6 +6,7 @@
 input{
 	margin-bottom: 0px;
 }
+
 .wrap {
 	width: 100%;
 }
@@ -296,6 +297,7 @@ li {
 	border-bottom:1px solid #eee;
 	background-color:#fff;
 	color:#555;
+	position:relative;
 }
 .xinxi-title{
 	line-height:45px;
@@ -314,6 +316,13 @@ li {
 	float: right;
 	margin-right:10px;
 	font-size:11pt;
+}
+
+.jzgxxl{
+	width:100%;
+	height:100px;
+	background-color:red;
+	z-index:999;
 }
 /*按钮active颜色   #0386ca; begin */
 .subbut{
@@ -357,16 +366,22 @@ li {
 	line-height: 45px;
 	
 }
-#inputout{
+
+.youxiang{
+
+	display: none;
+	margin-left:10px;
+	font-size:11pt;
+	line-height: 45px;
+
+
+}
+#inputout，#inputout2{
 	color:#eee;
 	position:relative;
 	
 }
-#inputout1{
-	color:#eee;
-	position:relative;
-	
-}
+
 /*page1 end*/
 .zhedie{
 	display: none;
@@ -409,6 +424,21 @@ li {
 	font-size:10pt;
 	text-align: right;
 }
+
+.gxlist{
+	height:35px;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	
+	text-align: right;
+	line-height:35px;
+	font-size:8pt;
+	color:#000;
+	padding-right: 10px;
+	float:right;
+}
+
+
 /*服装信息*/
 .sgtz{
 	font-size:11pt;
@@ -428,6 +458,61 @@ li {
 	
 }
 /*page2 begin*/
+
+
+
+.bigTouxiang{
+	
+	width:100%;
+	height:0px;
+	background-color:#fff;
+	z-index:-222;
+	display:none;
+	-webkit-box-shadow:0px -1px 6px 1px #eee inset;
+	overflow: hidden;
+	
+}
+.yicun{
+	width:130px;
+	height:180px;
+	background-image: url(../images/yicun.png);
+	background-size: 100% 100%;
+	border-radius:10px;
+	-webkit-box-shadow:0px 0px 4px 1px #ccc;
+	margin:0 auto;
+	margin-top:10px;
+	z-index:111;
+	position: relative;
+	
+}
+.upyicun{
+	width:100%;
+	height:30px;
+	background-color:rgba(150,150,150,0.1);
+	-webkit-box-shadow: 0px 1px 3px 2px #ccc;
+	position: relative;
+	top: 0px;
+	-webkit-filter: blur(10px); 
+	
+}
+.upicon{
+	height:20px;
+	width:20px;
+	-webkit-box-shadow: 0px 0px 2px 1px #bbb;
+	background-image:url(../images/close.png);
+	background-size:100% 100%;
+	position: absolute;
+	top:60px;
+	right:-20px;
+	z-index:555;
+	
+	border-radius:10px;
+	background-size:100% 100%;	
+	color:#fff;
+	text-align: center;
+	line-height: 20px;
+	
+}
 .gerenxinxi-biaoti{
 	width: 100%;
 	height: 50px;
@@ -462,12 +547,15 @@ li {
 .geren-touxiang{
 	width:35px;
 	height:35px;
+	position:relative;
+	left:-15px;
 }
 .geren-touxiang img{
-	width:35px;
-	height:35px;
-	border-radius:17px;
-	margin-top:5px;
+	width:28px;
+	height:38px;
+	border-radius:3px;
+	margin-top:3px;
+	-webkit-box-shadow: 1px 1px 2px 1px #ccc;
 }
 
 
@@ -1284,13 +1372,25 @@ li {
 .youjiantou{
 	width:15px;
 	height:15px;
-	
 	position:absolute;
 	top:15px;
 	right:15px;
 	background-image:url(../images/right.png);
 	background-size:100% 100%;
 }
+
+
+.xiajiantou1{
+	width:15px;
+	height:15px;
+	position:absolute;
+	top:15px;
+	right:10px;
+	background-image:url(../images/right.png);
+	background-size:100% 100%;
+}
+
+
 
 /*抵校信息page*/
 
@@ -1634,4 +1734,52 @@ li {
 	float: right;
 	margin-right:10px;
 	font-size:11pt;
+}
+/*辅导员管理页面*/
+
+.fdyinfo{
+	width:100%;
+	height:auto;
+}
+.fdytitle{
+	height:40px;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+}
+
+.fdyright{
+	float: right;
+}
+.fdyowner{
+	height:40px;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+	text-align: center;
+}
+
+.fdyowner-con{
+	width:100%;
+	border-bottom: 1px solid #eee;
+	line-height:40px;
+	text-align: center;
+}
+
+.fdyowner-con li{
+	text-align: center;
+	
+}
+
+.fdyloginout{
+	height:30px;
+	background-color:#1296DB;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:10px;
+	
+	border-radius:8px;
+	line-height: 30px;
+	text-align: center;
+	color:#fff;
 }
