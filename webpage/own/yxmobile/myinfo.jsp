@@ -37,17 +37,7 @@
 	<body>
 		<div class="wrap">
 			
-			<!--<div class="wrap-tiaoma" style="margin-top:0px">
-					<div class="tiaoma-biaoti">
-						<div class="tiaoma-tubiao"></div>
-						<div class="tiaoma-wenzi">条形码</div>
-					</div>
-					<div class="tiaoma-img" style="width:260px;margin:0 auto">
-						<img id="barcode" width="260px" />
-					</div>
-
-					
-			</div>-->
+		
 
 
 			<div class="xinxibiaoti" style="margin-top:0px;margin-top:0px;border:1px solid #eee;">
